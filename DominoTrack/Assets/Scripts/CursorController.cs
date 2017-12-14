@@ -13,6 +13,7 @@ public class CursorController : MonoBehaviour {
 	public GameObject model;
 	public GameObject startArrowModel;
 
+	public GameObject avatar;
 
 	private Renderer placeCursorRenderer;
 	private Renderer editCursorRenderer;
@@ -63,7 +64,7 @@ public class CursorController : MonoBehaviour {
 		}
 
 
-		var handPosition = transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
+		var handPosition = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
 
 		Ray ray = new Ray (handPosition + Vector3.down * 0.1f, Vector3.down);
 		RaycastHit hit;

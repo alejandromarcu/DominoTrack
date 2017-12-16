@@ -67,7 +67,7 @@ public class CursorController : MonoBehaviour {
 		var handPosition = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
 
 		// TODO, I want to calibrate this but the magic board stops working!
-		float handOffset = 0.1f; // TODO constant
+		float handOffset = 0.08f; // TODO constant
 
 		Ray ray = new Ray (handPosition + Vector3.down * handOffset, Vector3.down);
 		RaycastHit hit;
@@ -98,7 +98,6 @@ public class CursorController : MonoBehaviour {
 		if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)) {
 			var domino = new Domino(placeCursor.transform.position, handRotation.eulerAngles.y, model, startArrowModel);
 			Game.track.Place (domino);
-		//	lastPiecePlacedWithJoystick = null;
 		}
 	}
 

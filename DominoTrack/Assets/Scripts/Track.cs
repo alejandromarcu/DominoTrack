@@ -16,6 +16,12 @@ public class Track {
 		}
 	}
 
+	public GameObject trackGameObject { private set; get; }
+
+	public Track(GameObject track) {
+		trackGameObject = track;
+	}
+
 	public void Place(Domino d) {
 
 		track.Add(d);
@@ -48,21 +54,11 @@ public class Track {
 	}
 
 	public void Freeze() {
-		/*
-		//track.ForEach (domino => domino.Freeze ());
-		foreach (var domino in track) {
-			domino.Freeze ();
-		}
-		*/
+		track.ForEach (domino => domino.Freeze ());
 	}
 
 	public void Unfreeze() {
-		/*
-		//track.ForEach (domino => domino.Unfreeze ());
-		foreach (var domino in track) {
-			domino.Unfreeze ();
-		}
-		*/
+		track.ForEach (domino => domino.Unfreeze ());
 	}
 
 	public Domino Find(GameObject obj) {

@@ -27,6 +27,7 @@ public class MagicBoardController : MonoBehaviour {
 		RaycastHit hit;
 		Ray rayFindTile = new Ray (pos, Vector3.down);
 		if (!Physics.Raycast (rayFindTile, out hit, 0.01f)) {
+			Debug.DrawLine (pos, pos + Vector3.down, Color.red, 20f);
 			Debug.LogError ("Couldn't find the tile below the piece");
 			return;
 		}

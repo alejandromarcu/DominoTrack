@@ -6,7 +6,17 @@ using UnityEngine;
 public class Domino {
 	enum StartModes { NoStart, Forward, Backward};
 
-	public Vector3 position { get; private set; }
+
+	public Vector3 localPosition { get; private set; }
+	public Vector3 position { 
+		get {
+			return Game.track.trackGameObject.transform.TransformPoint (localPosition);
+		} 
+		set {
+			localPosition = Game.track.trackGameObject.transform.InverseTransformPoint (value);
+		}
+	}
+
 	public float rotationY { get; private set; }
 	public GameObject model  { get; private set; }
 	public GameObject startArrowModel  { get; private set; }
@@ -16,8 +26,8 @@ public class Domino {
 
 	public Vector3 forward { get { return gameObject.transform.forward; } }
 
-	public Domino(Vector3 position, float rotationY, GameObject model, GameObject startArrowModel) {
-		this.position = position;
+	public Domino(Vector3 worldPosition, float rotationY, GameObject model, GameObject startArrowModel) {
+		this.position = worldPosition;
 		this.rotationY = rotationY;
 		this.model = model;
 		this.startArrowModel = startArrowModel;
@@ -38,21 +48,18 @@ public class Domino {
 	}
 
 	public void Freeze() {
-		/*
 		if (gameObject != null) {
 			Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody>()[0]; // improve
-			r.isKinematic = true;
+			r.constraints = RigidbodyConstraints.FreezeAll;
 		}
-		*/
 	}
 
 	public void Unfreeze() {
-		/*
 		if (gameObject != null) {
 			Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody>()[0];
-			r.isKinematic = false;
+			r.constraints = RigidbodyConstraints.None;
+			r.Sleep ();
 		}
-		*/
 	}
 
 	public void DestroyGameObject() {

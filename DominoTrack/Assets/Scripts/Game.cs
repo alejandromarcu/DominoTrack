@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
 	} 
 
 	void Start () {
-		track = new Track ();
+		track = new Track (transform.Find("Track").gameObject);
 	}
 
 }

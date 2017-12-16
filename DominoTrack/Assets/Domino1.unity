@@ -1612,6 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648de45d172019d44869130b7f4cead7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursor: {fileID: 905012743}
 --- !u!1 &2066845843
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,6 +1768,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2109087112}
+  - component: {fileID: 2109087113}
   m_Layer: 0
   m_Name: StartArrow
   m_TagString: Untagged
@@ -1789,3 +1791,14 @@ Transform:
   m_Father: {fileID: 1154671826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109087113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2109087111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39fed645c8aa8949a0dc5a4d469d791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

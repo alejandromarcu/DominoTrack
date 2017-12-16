@@ -13,11 +13,13 @@ public class JoystickPlacer : MonoBehaviour {
 
 	// TODO check for edit mode
 	void Update() {
+        if (!Game.isBuilding) return;
+
 		if (Time.time < earliestTimeToPlaceNextJoystickPiece) {
 			return;
 		}
 
-
+   
 		// TODO prevent from removing pieces that were not placed with joystick.  I think I just need to place a flag in domino
 
 		Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);

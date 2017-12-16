@@ -9,8 +9,23 @@ public class GrabAndMove : MonoBehaviour {
 	private Vector3 handStartPos;
 	private Vector3 objectStartPos;
 
-	void Update () {
-		if (OVRInput.GetDown (OVRInput.RawButton.RHandTrigger)) {
+    private void Start()
+    {
+        Game.OnModeChanged += OnGameModeChanged;
+    }
+
+    private void OnGameModeChanged(Game.GameMode mode)
+    {
+        if (mode == Game.GameMode.Run)
+        {
+            if (isMoving) Release();
+        }
+    }
+
+    void Update () {
+        if (!Game.isBuilding) return;
+
+        if (OVRInput.GetDown (OVRInput.RawButton.RHandTrigger)) {
 			Grab ();
 		}
 		if (OVRInput.GetUp (OVRInput.RawButton.RHandTrigger)) {

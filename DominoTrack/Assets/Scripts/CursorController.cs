@@ -27,10 +27,19 @@ public class CursorController : MonoBehaviour {
 	void Start () {
 		placeCursorRenderer = placeCursor.GetComponentsInChildren<Renderer> ()[0];	
 		editCursorRenderer = editCursor.GetComponentsInChildren<Renderer> ()[0];
+        Game.OnModeChanged += OnGameModeChanged;
 	}
 
+    private void OnGameModeChanged(Game.GameMode mode)
+    {
+        // TODO need better modes in this class
+        if (mode == Game.GameMode.Run) { 
+            PlaceMode();
+            placeCursorRenderer.enabled = false;
+        }
+    }
 
-	public void EditMode(GameObject obj) {
+    public void EditMode(GameObject obj) {
 		editCursorRenderer.enabled = true;
 		placeCursorRenderer.enabled = false;
 		editCursor.transform.position = obj.transform.position;
@@ -47,17 +56,8 @@ public class CursorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetButtonDown("Fire1") && !fired && !editMode) {
-			fired = true;
-			Game.track.KickOff ();
-		}
-
-		if (Input.GetButtonDown("Fire2")) {
-			Game.track.Reset ();
-			fired = false;
-		}
-
+        if (!Game.isBuilding) return;
+       
 
 		if (Input.GetButtonDown("Fire3")) {
 			SceneManager.LoadScene ("Domino1");
@@ -107,44 +107,9 @@ public class CursorController : MonoBehaviour {
 			PlaceMode ();
 		}
 
-		if (Input.GetButtonDown ("Fire1")) {
+		if (Input.GetButtonDown ("Fire2")) {
 			var domino = Game.track.Find (editPiece);
 			domino.ToggleStart ();
-
 		}
 	}
-	/*
-	private double earliestTimeToPlaceNextJoystickPiece = 0;
-	private Domino lastPiecePlacedWithJoystick = null;
-
-	private void HandleJoystickPlacing() {
-		if (Time.time < earliestTimeToPlaceNextJoystickPiece) {
-			return;
-		}
-		// TODO prevent from removing pieces that were not placed with joystick.  I think I just need to place a flag in domino
-
-		Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-	
-
-
-		if (control.y > 0.2) {
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (0);
-		} else if (control.x > 0.2) {
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (15); // todo constant
-		} else if (control.x < -0.2) { 
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (-15); // todo constant
-		} else if (control.y < -0.2) {
-			if (Equals(lastPiecePlacedWithJoystick, Game.track.last)) {
-				Game.track.Remove (Game.track.last);
-			}
-			lastPiecePlacedWithJoystick = Game.track.last;
-		}
-
-
-	
-	//	earliestTimeToPlaceNextJoystickPiece = Time.time + 0.1;
-		earliestTimeToPlaceNextJoystickPiece = Time.time +  0.15 / (control.magnitude + 0.5);
-
-	}
-	*/
 }

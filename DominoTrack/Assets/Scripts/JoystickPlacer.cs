@@ -9,7 +9,8 @@ public class JoystickPlacer : MonoBehaviour {
 	private enum Direction { None, Up, Down, Left, Right};
 
 	private double earliestTimeToPlaceNextJoystickPiece = 0;
-	private Domino lastPiecePlacedWithJoystick = null;
+
+    private bool justDeleted = false;
 
 	// TODO check for edit mode
 	void Update() {
@@ -18,9 +19,6 @@ public class JoystickPlacer : MonoBehaviour {
 		if (Time.time < earliestTimeToPlaceNextJoystickPiece) {
 			return;
 		}
-
-   
-		// TODO prevent from removing pieces that were not placed with joystick.  I think I just need to place a flag in domino
 
 		Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
 
@@ -44,28 +42,28 @@ public class JoystickPlacer : MonoBehaviour {
 			max = -control.y;
 		}
 
-		switch (dir) {
-		case Direction.Up: 
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (0);
-			break;
-		case Direction.Left: 
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (-15);
-			break;
-		case Direction.Right: 
-			lastPiecePlacedWithJoystick = Game.track.PlaceNext (15);
-			break;
-		case Direction.Down: 
-			if (Equals(lastPiecePlacedWithJoystick, Game.track.last)) {
-				Game.track.Remove (Game.track.last);
-			}
-			lastPiecePlacedWithJoystick = Game.track.last;			
-			break;
-		case Direction.None:
-			return;
-		}
-
-		earliestTimeToPlaceNextJoystickPiece = Time.time +  0.1 / (control.magnitude + 0.5);
-
+        switch (dir)
+        {
+            case Direction.Up:
+                Game.track.PlaceNext(0);
+                break;
+            case Direction.Left:
+                Game.track.PlaceNext(-15);
+                break;
+            case Direction.Right:
+                Game.track.PlaceNext(15);
+                break;
+            case Direction.Down:
+                // The throttiling when deleting is one piece each time you move down
+                if (justDeleted || Game.track.isEmpty) return;
+                Game.track.Remove(Game.track.last);
+                justDeleted = true;
+                return;
+            case Direction.None:
+                justDeleted = false;
+                return;
+        }
+        earliestTimeToPlaceNextJoystickPiece = Time.time +  0.1 / (control.magnitude + 0.5);
 	}
 
 

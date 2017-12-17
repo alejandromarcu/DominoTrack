@@ -15,7 +15,7 @@ public class Track {
 			return track[track.Count - 1];
 		}
 	}
-
+    public bool isEmpty {  get { return track.Count == 0; } }
 	public GameObject trackGameObject { private set; get; }
 
 	public Track(GameObject track) {
@@ -23,7 +23,6 @@ public class Track {
 	}
 
 	public void Place(Domino d) {
-
 		track.Add(d);
 		d.ResetGameObject ();
 		if (track.Count == 1) {

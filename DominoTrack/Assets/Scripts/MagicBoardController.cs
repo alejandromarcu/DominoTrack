@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MagicBoardController : MonoBehaviour {
 
-	public float distanceToBorder = 0.05f;
+	public float distanceToBorder = 0.07f;
 
 	void Start () {
 		Track.OnDominoPlaced += OnDominoPlaced;

@@ -210,13 +210,13 @@ Rigidbody:
   m_GameObject: {fileID: 163849731}
   serializedVersion: 2
   m_Mass: 0.2
-  m_Drag: 0
-  m_AngularDrag: 0.01
+  m_Drag: 0.1
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!82 &163849735
 AudioSource:
   m_ObjectHideFlags: 0
@@ -621,7 +621,6 @@ GameObject:
   m_Component:
   - component: {fileID: 959423061}
   - component: {fileID: 959423064}
-  - component: {fileID: 959423063}
   - component: {fileID: 959423062}
   m_Layer: 0
   m_Name: Cylinder
@@ -677,19 +676,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &959423063
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 959423060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &959423064
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -986,6 +972,16 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d2d533ee6bb491f4e8a51eab29e58d92, type: 2}
+    - target: {fileID: 65270835803106284, guid: 4859cb045451e7545bf383036926fcc3,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65270835803106284, guid: 4859cb045451e7545bf383036926fcc3,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 4859cb045451e7545bf383036926fcc3, type: 2}
@@ -1576,7 +1572,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2073138523}
   - component: {fileID: 2073138526}
-  - component: {fileID: 2073138525}
   - component: {fileID: 2073138524}
   m_Layer: 0
   m_Name: Quad
@@ -1632,20 +1627,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2073138525
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2073138522}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &2073138526
 MeshFilter:
   m_ObjectHideFlags: 0

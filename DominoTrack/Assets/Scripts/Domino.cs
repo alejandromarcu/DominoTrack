@@ -40,10 +40,6 @@ public class Domino {
 		gameObject.SetActive(true);	
 
 		Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody> () [0];
-		r.centerOfMass = Vector3.up * 0.02f;
-
-		r.Sleep ();
-
 		RefreshStartArrow ();
 	}
 

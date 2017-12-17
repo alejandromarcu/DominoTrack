@@ -19,7 +19,8 @@ public class DominoController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision c) {
-		if (c.gameObject.CompareTag("domino")) {
+        if (c.rigidbody != null && c.rigidbody.gameObject.CompareTag("domino"))
+        {
 			dominoSound.Play();
 		}
 	}

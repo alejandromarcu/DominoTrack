@@ -39,13 +39,19 @@ public class Game : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (mode == GameMode.Build)
         {
-            if (mode == GameMode.Build)
+            if (OVRInput.GetDown(OVRInput.RawButton.A))
             {
                 track.KickOff();
                 Mode = GameMode.Run;
-            } else
+            }
+        } else if (Mode == GameMode.Run)
+        {
+            if (OVRInput.GetDown(OVRInput.RawButton.A) ||
+                OVRInput.GetDown(OVRInput.RawButton.B) ||
+                OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) || 
+                OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
             {
                 track.Reset();
                 Mode = GameMode.Build;

@@ -11,8 +11,14 @@ public class MagicBoardController : MonoBehaviour {
 	}
 
 	void OnDominoPlaced(Domino d) {
-		EnsureHasTileBelow (d.position, d.forward * distanceToBorder);
-		EnsureHasTileBelow (d.position, -d.forward * distanceToBorder);
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0) continue;
+                EnsureHasTileBelow(d.position, (Vector3.forward * x + Vector3.left * y) * distanceToBorder);
+            }
+        }
 	}
 
 	private void EnsureHasTileBelow(Vector3 pos, Vector3 shift) {

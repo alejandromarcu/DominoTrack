@@ -6,22 +6,20 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class DominoController : MonoBehaviour {
 
-	private AudioSource dominoSound;
+    private bool fallen = false;
 
-	// Use this for initialization
+	private AudioSource dominoSound;
 	void Start () {
 		dominoSound = GetComponent<AudioSource> ();	
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	void OnCollisionEnter(Collision c) {
-        if (c.rigidbody != null && c.rigidbody.gameObject.CompareTag("domino"))
+        if (!fallen && c.rigidbody != null && c.rigidbody.gameObject.CompareTag("domino"))
         {
 			dominoSound.Play();
+            // One a piece was hit by a domino, mark it as fallen, which will disable the noise, so that
+            // if the pieces vibrate and collide again they don't make noise
+            fallen = true;
 		}
 	}
 }

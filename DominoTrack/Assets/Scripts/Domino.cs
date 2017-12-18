@@ -6,7 +6,6 @@ using UnityEngine;
 public class Domino {
 	enum StartModes { NoStart, Forward, Backward};
 
-
 	public Vector3 localPosition { get; private set; }
 	public Vector3 position { 
 		get {
@@ -23,8 +22,8 @@ public class Domino {
 	private StartModes startMode = StartModes.NoStart;
 	private GameObject gameObject { get; set; } 
 	private GameObject startArrow;
-
 	public Vector3 forward { get { return gameObject.transform.forward; } }
+    private Rigidbody rigidbody;
 
 	public Domino(Vector3 worldPosition, float rotationY, GameObject model, GameObject startArrowModel) {
 		this.position = worldPosition;
@@ -37,24 +36,22 @@ public class Domino {
 		DestroyGameObject ();
 		var rotation = Quaternion.Euler (0f, rotationY, 0f);
 		gameObject = MonoBehaviour.Instantiate (model, position, rotation, model.transform.parent);
-		gameObject.SetActive(true);	
+		gameObject.SetActive(true);
 
-		Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody> () [0];
+        rigidbody = gameObject.GetComponentInChildren<Rigidbody> ();
 		RefreshStartArrow ();
 	}
 
 	public void Freeze() {
 		if (gameObject != null) {
-			Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody>()[0]; // improve
-			r.constraints = RigidbodyConstraints.FreezeAll;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
 		}
 	}
 
 	public void Unfreeze() {
 		if (gameObject != null) {
-			Rigidbody r = gameObject.GetComponentsInChildren<Rigidbody>()[0];
-			r.constraints = RigidbodyConstraints.None;
-			r.Sleep ();
+            rigidbody.constraints = RigidbodyConstraints.None;
+            rigidbody.Sleep ();
 		}
 	}
 
@@ -99,7 +96,7 @@ public class Domino {
 		}
 		int direction = startMode == StartModes.Forward ? 1 : -1;
 
-		gameObject.GetComponentInChildren<Rigidbody>().AddForce (gameObject.transform.forward * 0.1f * direction, ForceMode.Impulse);
+        rigidbody.AddForce (gameObject.transform.forward * 0.1f * direction, ForceMode.Impulse);
 	}
 
 	public bool MatchesGameObject(GameObject obj) {

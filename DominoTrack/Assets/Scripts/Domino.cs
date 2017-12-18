@@ -21,7 +21,7 @@ public class Domino {
 	public GameObject model  { get; private set; }
 	public GameObject startArrowModel  { get; private set; }
 	private StartModes startMode = StartModes.NoStart;
-	private GameObject gameObject { get; set; }
+	public             GameObject gameObject { get; set; } // revert
 	private GameObject startArrow;
 
 	public Vector3 forward { get { return gameObject.transform.forward; } }

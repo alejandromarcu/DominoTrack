@@ -22,7 +22,7 @@ public class MagicBoardController : MonoBehaviour {
 			// TODO: make sure is a tile or something that we want to clone
 			return;	
 		}
-
+        
 		// Find the current tile
 		RaycastHit hit;
 		Ray rayFindTile = new Ray (pos, Vector3.down);

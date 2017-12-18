@@ -7,8 +7,8 @@ using UnityEngine;
 public class DominoController : MonoBehaviour {
 
     private bool fallen = false;
-
 	private AudioSource dominoSound;
+
 	void Start () {
 		dominoSound = GetComponent<AudioSource> ();	
 	}

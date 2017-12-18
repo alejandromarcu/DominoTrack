@@ -85,8 +85,8 @@ public class Track {
     {
         var center = position + forward * (min + max) / 2f;
         var half_size = new Vector3(0.035f, 0.04f, max - min) / 2f; // TODO constant with size, a bit wider but less tall to avoid collisions with the floor
-        DebugUtils.DrawBox(center, half_size, Quaternion.identity, Color.red);
-        return !Physics.CheckBox(center, half_size, last.gameObject.transform.rotation);
+
+        return !Physics.CheckBox(center, half_size, Quaternion.LookRotation(forward));
     }
 
 

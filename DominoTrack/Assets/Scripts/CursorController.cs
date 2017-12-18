@@ -21,9 +21,6 @@ public class CursorController : MonoBehaviour {
 	private bool editMode = false;
 	private GameObject editPiece = null;
 
-	// This should go on the root class
-	private bool fired = false;
-
 	void Start () {
 		placeCursorRenderer = placeCursor.GetComponentsInChildren<Renderer> ()[0];	
 		editCursorRenderer = editCursor.GetComponentsInChildren<Renderer> ()[0];

@@ -14,6 +14,7 @@ public class CursorController : MonoBehaviour {
 	public GameObject startArrowModel;
 
 	public GameObject avatar;
+    public float minDistanceToSurfaceForPlacing = 0.1f;
 
 	private Renderer placeCursorRenderer;
 	private Renderer editCursorRenderer;
@@ -63,12 +64,9 @@ public class CursorController : MonoBehaviour {
 
 		var handPosition = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
 
-		// TODO, I want to calibrate this but the magic board stops working!
-		float handOffset = 0.08f; // TODO constant
-
-		Ray ray = new Ray (handPosition + Vector3.down * handOffset, Vector3.down);
+		Ray ray = new Ray (handPosition, Vector3.down);
 		RaycastHit hit;
-		if (!Physics.Raycast (ray, out hit, 0.05f)) { // TODO constant
+		if (!Physics.Raycast (ray, out hit, minDistanceToSurfaceForPlacing, Layers.DOMINO_SURFACE)) { 
 			editCursorRenderer.enabled = false;
 			placeCursorRenderer.enabled = false;
 			editMode = false;
@@ -78,7 +76,7 @@ public class CursorController : MonoBehaviour {
 
 		// We need to reposition the place cursor even in edit mode, so that the collider of the cursor may exit
 		// and signal the end of edit mode.
-		var dominoPosition = handPosition + Vector3.down * (hit.distance + handOffset);
+		var dominoPosition = handPosition + Vector3.down * hit.distance;
 		Quaternion handRotation = OVRInput.GetLocalControllerRotation (OVRInput.Controller.RTouch);
 		Quaternion dominoRotation = Quaternion.Euler (0f, handRotation.eulerAngles.y, 0f);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MagicBoardController : MonoBehaviour {
 
-	public float distanceToBorder = 0.1f;
+	public float distanceToBorder = 0.05f;
 
 	void Start () {
 		Track.OnDominoPlaced += OnDominoPlaced;
@@ -22,8 +22,11 @@ public class MagicBoardController : MonoBehaviour {
 	}
 
 	private void EnsureHasTileBelow(Vector3 pos, Vector3 shift) {
+        // Raise it up a bit, otherwise sometimes it misses the collider
+        pos += Vector3.up * 0.01f;
+
 		Vector3 testPos = pos + shift;
-		if (Physics.Raycast (testPos, Vector3.down, 0.01f)) {
+		if (Physics.Raycast (testPos, Vector3.down, 0.05f)) {
 			// We already have a tile below.
 			// TODO: make sure is a tile or something that we want to clone
 			return;	
@@ -32,7 +35,7 @@ public class MagicBoardController : MonoBehaviour {
 		// Find the current tile
 		RaycastHit hit;
 		Ray rayFindTile = new Ray (pos, Vector3.down);
-		if (!Physics.Raycast (rayFindTile, out hit, 0.01f)) {
+		if (!Physics.Raycast (rayFindTile, out hit, 0.05f)) {
 			Debug.DrawLine (pos, pos + Vector3.down, Color.red, 20f);
 			Debug.LogError ("Couldn't find the tile below the piece");
 			return;

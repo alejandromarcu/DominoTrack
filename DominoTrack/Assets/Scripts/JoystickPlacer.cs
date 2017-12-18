@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JoystickPlacer : MonoBehaviour {
 
-	public float threshold = 0.2f;
+	public float threshold = 0.1f;
 
 	private enum Direction { None, Up, Down, Left, Right};
 
@@ -46,12 +46,15 @@ public class JoystickPlacer : MonoBehaviour {
         {
             case Direction.Up:
                 Game.track.PlaceNext(0);
+                earliestTimeToPlaceNextJoystickPiece = Time.time + 0.04 / (control.magnitude + 0.1);
                 break;
             case Direction.Left:
                 Game.track.PlaceNext(-15);
+                earliestTimeToPlaceNextJoystickPiece = Time.time + 0.1;
                 break;
             case Direction.Right:
                 Game.track.PlaceNext(15);
+                earliestTimeToPlaceNextJoystickPiece = Time.time + 0.1;
                 break;
             case Direction.Down:
                 // The throttiling when deleting is one piece each time you move down
@@ -63,7 +66,6 @@ public class JoystickPlacer : MonoBehaviour {
                 justDeleted = false;
                 return;
         }
-        earliestTimeToPlaceNextJoystickPiece = Time.time +  0.1 / (control.magnitude + 0.5);
 	}
 
 

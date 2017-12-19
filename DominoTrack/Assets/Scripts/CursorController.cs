@@ -15,7 +15,7 @@ public class CursorController : MonoBehaviour
     public GameObject avatar;
     public float minDistanceToSurfaceForPlacing = 0.1f;
 
-    private enum Mode { Neutral, Place, Edit, JustPlaced, NotOnSurface }; // TODO inactive mode
+    private enum Mode { Neutral, Place, Edit, JustPlaced, NotOnSurface, Inactive }; 
     private Mode mode = Mode.Neutral;
 
     private Renderer placeCursorRenderer;
@@ -27,49 +27,54 @@ public class CursorController : MonoBehaviour
     {
         placeCursorRenderer = placeCursor.GetComponentsInChildren<Renderer>()[0];
         editCursorRenderer = editCursor.GetComponentsInChildren<Renderer>()[0];
-        Game.OnModeChanged += OnGameModeChanged;
+        Game.OnModeChanged += gameMode => SetMode(gameMode == Game.GameMode.Run ? Mode.Inactive : Mode.Neutral);
+        GrabAndMove.OnGrabAndMoveStart += () => SetMode(Mode.Inactive);
+        GrabAndMove.OnGrabAndMoveEnd += () => SetMode(Mode.Neutral);
     }
 
-    void SetMode(Mode mode)
+    /**
+     * Return true if the mode was set to the specified mode, or false if the
+     * transition was rejected
+     **/
+    bool SetMode(Mode mode)
     {
         if (this.mode == mode)
         {
-            return;
+            return true;
         }
+        if ((this.mode == Mode.JustPlaced && mode == Mode.Edit) ||  
+            (this.mode == Mode.Inactive && mode != Mode.Neutral))
+        {
+            return false;
+        }
+   
         this.mode = mode;
 
         editCursorRenderer.enabled = mode == Mode.Edit;
         placeCursorRenderer.enabled = mode == Mode.Place;
+        return true;
+    }
+   
+    public void StartEditing(GameObject obj)
+    {
+        if (SetMode(Mode.Edit))
+        {
+            editCursor.transform.position = obj.transform.position;
+            editPiece = obj;
+        }
     }
 
-    private void OnGameModeChanged(Game.GameMode mode)
+    public void StopEditing(GameObject obj)
     {
-        if (mode == Game.GameMode.Run)
+        if (mode == Mode.Edit)
         {
             SetMode(Mode.Neutral);
         }
     }
 
-    public void StartEditing(GameObject obj)
-    {
-        if (mode == Mode.JustPlaced)
-        {
-            return;
-        }
-        SetMode(Mode.Edit);
-        editCursor.transform.position = obj.transform.position;
-        editPiece = obj;
-    }
-
-    public void StopEditing(GameObject obj)
-    {
-        SetMode(Mode.Neutral);
-        editPiece = null;
-    }
-
     void Update()
     {
-        if (!Game.isBuilding) return;
+        if (mode == Mode.Inactive) return;
 
         // TODO move and use confirmation
         if (Input.GetButtonDown("Fire3"))

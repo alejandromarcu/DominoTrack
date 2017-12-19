@@ -5,25 +5,36 @@ using UnityEngine;
 /**
  * Switch between edit and place modes depending on wheteher there's a collision between the cursor and other pieces
  */
-public class PlaceCursorObjectController : MonoBehaviour {
+public class PlaceCursorObjectController : MonoBehaviour
+{
 
-	private GameObject currentCollision = null;
+    private GameObject currentCollision = null;
     public GameObject cursor;
+    private CursorController cursorController;
 
-    void OnTriggerEnter(Collider other) {
-		if (currentCollision != null)
-			return;
-		
-		if (other.CompareTag("domino")) {
-            cursor.GetComponent<CursorController>().EditMode(other.transform.parent.gameObject);
-			currentCollision = other.gameObject;
-		}
-	}
+    void Awake()
+    {
+        cursorController = cursor.GetComponent<CursorController>();
+    }
 
-	void OnTriggerExit(Collider other) {
-		if (other.gameObject == currentCollision) {
-            cursor.GetComponent<CursorController>().PlaceMode ();
-			currentCollision = null;
-		}
-	}
+    void OnTriggerEnter(Collider other)
+    {
+        if (currentCollision != null)
+            return;
+
+        if (other.CompareTag("domino"))
+        {
+            cursorController.StartEditing(other.transform.parent.gameObject);
+            currentCollision = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == currentCollision)
+        {
+            cursorController.StopEditing(other.transform.parent.gameObject);
+            currentCollision = null;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GrabAndMove : MonoBehaviour {
@@ -8,6 +9,7 @@ public class GrabAndMove : MonoBehaviour {
 	private bool isMoving = false;
 	private Vector3 handStartPos;
 	private Vector3 objectStartPos;
+    private float lowestPoint;
 
     private void Start()
     {
@@ -41,11 +43,18 @@ public class GrabAndMove : MonoBehaviour {
 		isMoving = true;
 		handStartPos = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
 		objectStartPos = transform.position;
+        Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
+        lowestPoint = renderers.Min(r => r.bounds.min.y);
 	}
 
 	void Move () {
 		var handCurrentPos = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition (OVRInput.Controller.RTouch));
-		transform.position = (handCurrentPos - handStartPos) + objectStartPos;
+        // If trying to go below the floor, just move the hand start position so that it doesn't happen
+        if (handStartPos.y - handCurrentPos.y > lowestPoint)
+        {
+            handStartPos.y = handCurrentPos.y + lowestPoint;
+        }
+        transform.position = handCurrentPos - handStartPos + objectStartPos;
 	}
 
 	void Release () {

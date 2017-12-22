@@ -6,11 +6,16 @@ public class MagicBoardController : MonoBehaviour {
 
 	public float distanceToBorder = 0.05f;
 
-	void Start () {
+	void OnEnable () {
 		Track.OnDominoPlaced += OnDominoPlaced;
 	}
 
-	void OnDominoPlaced(Domino d) {
+    void OnDisable()
+    {
+        Track.OnDominoPlaced += OnDominoPlaced;
+    }
+
+    void OnDominoPlaced(Domino d) {
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)

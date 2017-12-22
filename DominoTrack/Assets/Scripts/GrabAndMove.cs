@@ -17,9 +17,14 @@ public class GrabAndMove : MonoBehaviour
     private Vector3 objectStartPos;
     private float lowestPoint;
 
-    private void Start()
+    private void OnEnable()
     {
         Game.OnModeChanged += OnGameModeChanged;
+    }
+
+    private void OnDisable()
+    {
+        Game.OnModeChanged -= OnGameModeChanged;
     }
 
     private void OnGameModeChanged(Game.GameMode mode)

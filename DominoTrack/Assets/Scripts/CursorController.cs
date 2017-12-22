@@ -23,13 +23,36 @@ public class CursorController : MonoBehaviour
 
     private GameObject editPiece = null;
 
-    void Start()
+    void OnEnable()
     {
         placeCursorRenderer = placeCursor.GetComponentsInChildren<Renderer>()[0];
         editCursorRenderer = editCursor.GetComponentsInChildren<Renderer>()[0];
-        Game.OnModeChanged += gameMode => SetMode(gameMode == Game.GameMode.Run ? Mode.Inactive : Mode.Neutral);
-        GrabAndMove.OnGrabAndMoveStart += () => SetMode(Mode.Inactive);
-        GrabAndMove.OnGrabAndMoveEnd += () => SetMode(Mode.Neutral);
+
+        Game.OnModeChanged += SetModeFromGameMode;
+        GrabAndMove.OnGrabAndMoveStart += SetModeInactive;
+        GrabAndMove.OnGrabAndMoveEnd += SetModeNeutral;
+    }
+
+    void OnDisable()
+    {
+        Game.OnModeChanged -= SetModeFromGameMode;
+        GrabAndMove.OnGrabAndMoveStart -= SetModeInactive;
+        GrabAndMove.OnGrabAndMoveEnd -= SetModeNeutral;
+    }
+
+    void SetModeFromGameMode(Game.GameMode gameMode)
+    {
+        SetMode(gameMode == Game.GameMode.Run ? Mode.Inactive : Mode.Neutral);
+    }
+
+    void SetModeInactive()
+    {
+        SetMode(Mode.Inactive);
+    }
+
+    void SetModeNeutral()
+    {
+        SetMode(Mode.Neutral);
     }
 
     /**
@@ -47,7 +70,6 @@ public class CursorController : MonoBehaviour
         {
             return false;
         }
-   
         this.mode = mode;
 
         editCursorRenderer.enabled = mode == Mode.Edit;

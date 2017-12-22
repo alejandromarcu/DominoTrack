@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game : MonoBehaviour {
+public class Game : MonoBehaviour
+{
     public enum GameMode { Build, Run };
     public delegate void GameModeChangedAction(GameMode mode);
     public static event GameModeChangedAction OnModeChanged;
 
-    public static Track track {
-		get;
-		private set;
-	}
+    public static Track track
+    {
+        get;
+        private set;
+    }
     public static Game instance
     {
         get;
         private set;
     }
     private GameMode mode;
-    public GameMode Mode {
+    public GameMode Mode
+    {
         get
         {
             return mode;
@@ -26,17 +29,18 @@ public class Game : MonoBehaviour {
         private set
         {
             mode = value;
-           if (OnModeChanged != null)
+            if (OnModeChanged != null)
                 OnModeChanged(value);
         }
     }
     public static bool isBuilding { get { return instance.mode == GameMode.Build; } }
 
-    void Start () {
-		track = new Track (transform.Find("Track").gameObject);
+    void Start()
+    {
+        track = new Track(transform.Find("Track").gameObject);
         instance = this;
         Mode = GameMode.Build;
-	}
+    }
 
     void Update()
     {
@@ -47,11 +51,12 @@ public class Game : MonoBehaviour {
                 track.KickOff();
                 Mode = GameMode.Run;
             }
-        } else if (Mode == GameMode.Run)
+        }
+        else if (Mode == GameMode.Run)
         {
             if (OVRInput.GetDown(OVRInput.RawButton.A) ||
                 OVRInput.GetDown(OVRInput.RawButton.B) ||
-                OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) || 
+                OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger) ||
                 OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
             {
                 track.Reset();

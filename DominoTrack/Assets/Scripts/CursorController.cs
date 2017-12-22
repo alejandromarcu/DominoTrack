@@ -15,7 +15,7 @@ public class CursorController : MonoBehaviour
     public GameObject avatar;
     public float minDistanceToSurfaceForPlacing = 0.1f;
 
-    private enum Mode { Neutral, Place, Edit, JustPlaced, NotOnSurface, Inactive }; 
+    private enum Mode { Neutral, Place, Edit, JustPlaced, NotOnSurface, Inactive };
     private Mode mode = Mode.Neutral;
 
     private Renderer placeCursorRenderer;
@@ -65,7 +65,7 @@ public class CursorController : MonoBehaviour
         {
             return true;
         }
-        if ((this.mode == Mode.JustPlaced && mode == Mode.Edit) ||  
+        if ((this.mode == Mode.JustPlaced && mode == Mode.Edit) ||
             (this.mode == Mode.Inactive && mode != Mode.Neutral))
         {
             return false;
@@ -76,7 +76,7 @@ public class CursorController : MonoBehaviour
         placeCursorRenderer.enabled = mode == Mode.Place;
         return true;
     }
-   
+
     public void StartEditing(GameObject obj)
     {
         if (SetMode(Mode.Edit))

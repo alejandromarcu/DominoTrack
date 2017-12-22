@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartArrowController : MonoBehaviour {
-	void Update () {
+public class StartArrowController : MonoBehaviour
+{
+    void Update()
+    {
         gameObject.SetActive(Game.isBuilding);
-	}
+    }
 }

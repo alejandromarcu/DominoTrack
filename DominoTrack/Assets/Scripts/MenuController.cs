@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuController : MonoBehaviour {
+public class MenuController : MonoBehaviour
+{
 
     public GameObject laser;
     public GameObject cameraObject;
@@ -10,24 +11,25 @@ public class MenuController : MonoBehaviour {
 
     private bool showing;
 
-	// Use this for initialization
-	void Start () {
+    void Start()
+    {
         ExitMenu();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (OVRInput.GetDown(OVRInput.RawButton.Start))
+    }
+
+    void Update()
+    {
+        if (OVRInput.GetDown(OVRInput.RawButton.Start))
         {
             if (showing)
             {
                 ExitMenu();
-            } else
+            }
+            else
             {
                 MainMenu();
             }
         }
-	}
+    }
 
     public void MainMenu()
     {

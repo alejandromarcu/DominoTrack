@@ -2,45 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickPlacer : MonoBehaviour {
+public class JoystickPlacer : MonoBehaviour
+{
 
-	public float threshold = 0.1f;
+    public float threshold = 0.1f;
 
-	private enum Direction { None, Up, Down, Left, Right};
+    private enum Direction { None, Up, Down, Left, Right };
 
-	private double earliestTimeToPlaceNextJoystickPiece = 0;
+    private double earliestTimeToPlaceNextJoystickPiece = 0;
 
     private bool justDeleted = false;
 
-	// TODO check for edit mode
-	void Update() {
+    void Update()
+    {
         if (!Game.isBuilding) return;
 
-		if (Time.time < earliestTimeToPlaceNextJoystickPiece) {
-			return;
-		}
+        if (Time.time < earliestTimeToPlaceNextJoystickPiece)
+        {
+            return;
+        }
 
-		Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+        Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
 
-		float max = threshold;
-		Direction dir = Direction.None;
+        float max = threshold;
+        Direction dir = Direction.None;
 
-		if (control.y > max) {
-			dir = Direction.Up;
-			max = control.y;
-		}
-		if (control.x > max) {
-			dir = Direction.Right;
-			max = control.x;
-		}
-		if (-control.x > max) {
-			dir = Direction.Left;
-			max = -control.x;
-		}
-		if (-control.y > max) {
-			dir = Direction.Down;
-			max = -control.y;
-		}
+        if (control.y > max)
+        {
+            dir = Direction.Up;
+            max = control.y;
+        }
+        if (control.x > max)
+        {
+            dir = Direction.Right;
+            max = control.x;
+        }
+        if (-control.x > max)
+        {
+            dir = Direction.Left;
+            max = -control.x;
+        }
+        if (-control.y > max)
+        {
+            dir = Direction.Down;
+            max = -control.y;
+        }
 
         switch (dir)
         {
@@ -66,7 +72,7 @@ public class JoystickPlacer : MonoBehaviour {
                 justDeleted = false;
                 return;
         }
-	}
+    }
 
 
 }

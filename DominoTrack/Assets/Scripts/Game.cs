@@ -34,6 +34,7 @@ public class Game : MonoBehaviour
         }
     }
     public static bool isBuilding { get { return instance.mode == GameMode.Build; } }
+    public bool kickOffButtonOverloaded { get; set; }
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class Game : MonoBehaviour
     {
         if (mode == GameMode.Build)
         {
-            if (OVRInput.GetDown(OVRInput.RawButton.A))
+            if (!kickOffButtonOverloaded && OVRInput.GetDown(OVRInput.RawButton.A))
             {
                 track.KickOff();
                 Mode = GameMode.Run;

@@ -74,6 +74,9 @@ public class CursorController : MonoBehaviour
 
         editCursorRenderer.enabled = mode == Mode.Edit;
         placeCursorRenderer.enabled = mode == Mode.Place;
+        // Indicate whether we have priority over the button, so that in edit mode instead
+        // of kicking off we switch the kick off mode. 
+        Game.instance.kickOffButtonOverloaded = mode == Mode.Edit;
         return true;
     }
 
@@ -146,7 +149,7 @@ public class CursorController : MonoBehaviour
             SetMode(Mode.Neutral);
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             var domino = Game.track.Find(editPiece);
             domino.ToggleStart();

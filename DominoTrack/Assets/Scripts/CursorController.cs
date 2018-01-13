@@ -95,12 +95,6 @@ public class CursorController : MonoBehaviour
     {
         if (mode == Mode.Inactive) return;
 
-        // TODO move and use confirmation
-        if (Input.GetButtonDown("Fire3"))
-        {
-            SceneManager.LoadScene("Domino1");
-        }
-
         SetPlaceCursorPosition();
 
         switch (mode)

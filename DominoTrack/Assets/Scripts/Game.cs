@@ -8,6 +8,8 @@ public class Game : MonoBehaviour
     public enum GameMode { Build, Run };
     public delegate void GameModeChangedAction(GameMode mode);
     public static event GameModeChangedAction OnModeChanged;
+    public GameObject startArrowModel;
+    public GameObject dominoModel;
 
     public static Track track
     {
@@ -38,9 +40,9 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        track = new Track(transform.Find("Track").gameObject);
         instance = this;
         Mode = GameMode.Build;
+        track = new Track(transform.Find("Track").gameObject);
     }
 
     void Update()

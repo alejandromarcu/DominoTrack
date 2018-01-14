@@ -9,9 +9,6 @@ public class CursorController : MonoBehaviour
     public GameObject placeCursor;
     public GameObject editCursor;
 
-    public GameObject model;
-    public GameObject startArrowModel;
-
     public GameObject avatar;
     public float minDistanceToSurfaceForPlacing = 0.1f;
 
@@ -160,7 +157,7 @@ public class CursorController : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
-            var domino = new Domino(placeCursor.transform.position, placeCursor.transform.rotation.eulerAngles.y, model, startArrowModel);
+            var domino = new Domino(placeCursor.transform.position, placeCursor.transform.rotation.eulerAngles.y);
             Game.track.Place(domino);
             SetMode(Mode.JustPlaced);
         }

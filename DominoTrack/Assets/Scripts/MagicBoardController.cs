@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class MagicBoardController : MonoBehaviour
     public float distanceToBorder = 0.05f;
     public GameObject cameraObject;
     public float initialYPosition = 1.0f;
+
+    private bool isCameraInitialized = false;
 
     void OnEnable()
     {
@@ -19,23 +22,43 @@ public class MagicBoardController : MonoBehaviour
         Track.OnDominoPlaced -= OnDominoPlaced;
     }
 
-    void Start()
+    private void InitPositionInFrontOfCamera()
     {
         var tile = transform.Find("Tile");
-        InitPositionInFrontOfCamera(tile.transform.localScale.x);
-    }
-
-    void InitPositionInFrontOfCamera(float tileSize)
-    { 
         var fwd = cameraObject.transform.forward;
         fwd.y = 0;
         fwd.Normalize();
 
-        var cameraAtBoardHeight = cameraObject.transform.position; 
+        var cameraAtBoardHeight = cameraObject.transform.position;
         cameraAtBoardHeight.y = initialYPosition;
 
-        transform.position = cameraAtBoardHeight + fwd * tileSize * 0.75f;
+        transform.position = cameraAtBoardHeight + fwd * tile.localScale.x * 0.75f;
         transform.LookAt(cameraAtBoardHeight, Vector3.up);
+    }
+
+    private void AddFirstPiece()
+    {
+        var tile = transform.Find("Tile");
+        var pos = transform.TransformPoint(0f, tile.localScale.y / 2, 0f);
+        Domino d = new Domino(pos, transform.rotation.eulerAngles.y + 180);
+        Game.track.Place(d);
+    }
+
+    private void Update()
+    {
+        // The initial position of the HMD or camera is (0,0,0) until it's moved.  So, if I try
+        // to initialize things that depend on the camera position on Start or another method, they'll
+        // get the wrong position.  Instead, just wait until the camera has moved and the initialize.
+        if (isCameraInitialized)
+        {
+            return;
+        }
+        if (cameraObject.transform.position.magnitude > 0.001f)
+        {
+            InitPositionInFrontOfCamera();
+            AddFirstPiece();
+            isCameraInitialized = true;
+        }
     }
 
     void OnDominoPlaced(Domino d)
@@ -49,7 +72,7 @@ public class MagicBoardController : MonoBehaviour
             }
         }
     }
-
+   
     private void EnsureHasTileBelow(Vector3 worldPos, Vector3 shift)
     {
         // Raise it up a bit, otherwise sometimes it misses the collider

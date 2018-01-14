@@ -21,27 +21,23 @@ public class Domino
     }
 
     public float rotationY { get; private set; }
-    public GameObject model { get; private set; }
-    public GameObject startArrowModel { get; private set; }
     private StartModes startMode = StartModes.NoStart;
     private GameObject gameObject { get; set; }
     private GameObject startArrow;
     public Vector3 forward { get { return gameObject.transform.forward; } }
     private Rigidbody rigidbody;
 
-    public Domino(Vector3 worldPosition, float rotationY, GameObject model, GameObject startArrowModel)
+    public Domino(Vector3 worldPosition, float rotationY)
     {
         this.position = worldPosition;
         this.rotationY = rotationY;
-        this.model = model;
-        this.startArrowModel = startArrowModel;
     }
 
     public void ResetGameObject()
     {
         DestroyGameObject();
         var rotation = Quaternion.Euler(0f, rotationY, 0f);
-        gameObject = MonoBehaviour.Instantiate(model, position, rotation, model.transform.parent);
+        gameObject = MonoBehaviour.Instantiate(Game.instance.dominoModel, position, rotation, Game.instance.dominoModel.transform.parent);
         gameObject.SetActive(true);
 
         rigidbody = gameObject.GetComponentInChildren<Rigidbody>();
@@ -99,7 +95,7 @@ public class Domino
 
         if (startMode != StartModes.NoStart)
         {
-            startArrow = MonoBehaviour.Instantiate(startArrowModel, position, gameObject.transform.rotation, gameObject.transform);
+            startArrow = MonoBehaviour.Instantiate(Game.instance.startArrowModel, position, gameObject.transform.rotation, gameObject.transform);
             startArrow.SetActive(true);
             if (startMode == StartModes.Backward)
             {

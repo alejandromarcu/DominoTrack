@@ -1092,8 +1092,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placeCursor: {fileID: 2067792661}
   editCursor: {fileID: 1675519878}
-  model: {fileID: 1826420123}
-  startArrowModel: {fileID: 2109087111}
   avatar: {fileID: 1745496947}
   minDistanceToSurfaceForPlacing: 0.1
 --- !u!65 &905012746
@@ -1324,6 +1322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b91dab070ef3e40ac6539bf9602846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startArrowModel: {fileID: 2109087111}
+  dominoModel: {fileID: 1826420123}
 --- !u!114 &1275884229
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -51,7 +51,7 @@ public class Track
 
         float d = FindNextAvailablePosition(pos, last.forward, angle);
 
-        var newPiece = new Domino(pos + last.forward * d, rotation, last.model, last.startArrowModel);
+        var newPiece = new Domino(pos + last.forward * d, rotation);
         Place(newPiece);
         return newPiece;
     }

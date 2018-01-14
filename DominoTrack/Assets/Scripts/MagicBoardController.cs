@@ -14,7 +14,7 @@ public class MagicBoardController : MonoBehaviour
 
     void OnDisable()
     {
-        Track.OnDominoPlaced += OnDominoPlaced;
+        Track.OnDominoPlaced -= OnDominoPlaced;
     }
 
     void OnDominoPlaced(Domino d)

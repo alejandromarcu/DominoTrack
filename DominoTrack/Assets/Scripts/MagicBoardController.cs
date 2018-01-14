@@ -6,6 +6,8 @@ public class MagicBoardController : MonoBehaviour
 {
 
     public float distanceToBorder = 0.05f;
+    public GameObject cameraObject;
+    public float initialYPosition = 1.0f;
 
     void OnEnable()
     {
@@ -15,6 +17,25 @@ public class MagicBoardController : MonoBehaviour
     void OnDisable()
     {
         Track.OnDominoPlaced -= OnDominoPlaced;
+    }
+
+    void Start()
+    {
+        var tile = transform.Find("Tile");
+        InitPositionInFrontOfCamera(tile.transform.localScale.x);
+    }
+
+    void InitPositionInFrontOfCamera(float tileSize)
+    { 
+        var fwd = cameraObject.transform.forward;
+        fwd.y = 0;
+        fwd.Normalize();
+
+        var cameraAtBoardHeight = cameraObject.transform.position; 
+        cameraAtBoardHeight.y = initialYPosition;
+
+        transform.position = cameraAtBoardHeight + fwd * tileSize * 0.75f;
+        transform.LookAt(cameraAtBoardHeight, Vector3.up);
     }
 
     void OnDominoPlaced(Domino d)
@@ -29,13 +50,16 @@ public class MagicBoardController : MonoBehaviour
         }
     }
 
-    private void EnsureHasTileBelow(Vector3 pos, Vector3 shift)
+    private void EnsureHasTileBelow(Vector3 worldPos, Vector3 shift)
     {
         // Raise it up a bit, otherwise sometimes it misses the collider
-        pos += Vector3.up * 0.01f;
+        worldPos += Vector3.up * 0.01f;
+
+        var pos = transform.InverseTransformPoint(worldPos);
 
         Vector3 testPos = pos + shift;
-        if (Physics.Raycast(testPos, Vector3.down, 0.05f))
+        Vector3 testPosWorld = transform.TransformPoint(testPos);
+        if (Physics.Raycast(testPosWorld, Vector3.down, 0.05f))
         {
             // We already have a tile below.
             // TODO: make sure is a tile or something that we want to clone
@@ -44,10 +68,10 @@ public class MagicBoardController : MonoBehaviour
 
         // Find the current tile
         RaycastHit hit;
-        Ray rayFindTile = new Ray(pos, Vector3.down);
+        Ray rayFindTile = new Ray(worldPos, Vector3.down);
         if (!Physics.Raycast(rayFindTile, out hit, 0.05f))
         {
-            Debug.DrawLine(pos, pos + Vector3.down, Color.red, 20f);
+            Debug.DrawLine(worldPos, worldPos + Vector3.down, Color.red, 20f);
             Debug.LogError("Couldn't find the tile below the piece");
             return;
         }
@@ -57,7 +81,7 @@ public class MagicBoardController : MonoBehaviour
         int dz = 0;
 
         GameObject tile = hit.collider.gameObject;
-        Vector3 tilePos = tile.transform.position;
+        Vector3 tilePos = transform.InverseTransformPoint(tile.transform.position);
         Vector3 tileSize = tile.transform.localScale;
 
         if (testPos.x > (tilePos.x + tileSize.x / 2.0))
@@ -78,7 +102,8 @@ public class MagicBoardController : MonoBehaviour
         }
 
         var newPos = tilePos + new Vector3(dx * tileSize.x, 0, dz * tileSize.z);
-        Instantiate(tile, newPos, tile.transform.rotation, tile.transform.parent);
+        var newPosWorld = transform.TransformPoint(newPos);
+        Instantiate(tile, newPosWorld, tile.transform.rotation, tile.transform.parent);
     }
 
 }

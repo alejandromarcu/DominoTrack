@@ -20,17 +20,28 @@ public class Domino
         }
     }
 
-    public float rotationY { get; private set; }
+    public float localRotationY { get; private set; }
+    public float rotationY
+    {
+        get
+        {
+            return localRotationY + Game.instance.dominoModel.transform.parent.rotation.eulerAngles.y;
+        }
+        set
+        {
+            localRotationY = value - Game.instance.dominoModel.transform.parent.rotation.eulerAngles.y;
+        }
+    }
     private StartModes startMode = StartModes.NoStart;
     private GameObject gameObject { get; set; }
     private GameObject startArrow;
     public Vector3 forward { get { return gameObject.transform.forward; } }
     private Rigidbody rigidbody;
 
-    public Domino(Vector3 worldPosition, float rotationY)
+    public Domino(Vector3 worldPosition, float worldRotationY)
     {
         this.position = worldPosition;
-        this.rotationY = rotationY;
+        this.rotationY = worldRotationY;
     }
 
     public void ResetGameObject()

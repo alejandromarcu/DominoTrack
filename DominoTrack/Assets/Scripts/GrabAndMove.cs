@@ -13,9 +13,10 @@ public class GrabAndMove : MonoBehaviour
     public static event GrabAndMoveEnd OnGrabAndMoveEnd;
 
     private bool isMoving = false;
-    private Vector3 handStartPos;
-    private Vector3 objectStartPos;
-    private float lowestPoint;
+
+    private float prevRotationY;
+    private Vector3 prevPos;
+    private float minY;
 
     private void OnEnable()
     {
@@ -53,29 +54,52 @@ public class GrabAndMove : MonoBehaviour
         }
     }
 
+   
     void Grab()
     {
         Game.track.Freeze();
         isMoving = true;
-        handStartPos = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch));
-        objectStartPos = transform.position;
-        Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
-        lowestPoint = renderers.Min(r => r.bounds.min.y);
+        GetPositionAndRotationY(out prevPos, out prevRotationY);
+        ComputeMinY();
+
         if (OnGrabAndMoveStart != null)
         {
             OnGrabAndMoveStart();
         }
     }
 
+    private void ComputeMinY()
+    {
+        Renderer[] renderers = transform.GetComponentsInChildren<Renderer>();
+        var lowestPoint = renderers.Min(r => r.bounds.min.y);
+        minY = transform.position.y - lowestPoint;
+    }
+
     void Move()
     {
-        var handCurrentPos = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch));
-        // If trying to go below the floor, just move the hand start position so that it doesn't happen
-        if (handStartPos.y - handCurrentPos.y > lowestPoint)
+        Vector3 currentPos;
+        float currentRotationY;
+        GetPositionAndRotationY(out currentPos, out currentRotationY);
+
+        var deltaPos = currentPos - prevPos;
+
+        // Don't allow to move below the floor
+        if (transform.position.y + deltaPos.y < minY)
         {
-            handStartPos.y = handCurrentPos.y + lowestPoint;
+            deltaPos.y = 0;
         }
-        transform.position = handCurrentPos - handStartPos + objectStartPos;
+
+        transform.RotateAround(currentPos, Vector3.up, currentRotationY - prevRotationY);
+        transform.Translate(deltaPos, Space.World);
+
+        prevPos = currentPos; 
+        prevRotationY = currentRotationY;
+    }
+
+    void GetPositionAndRotationY(out Vector3 pos, out float rot)
+    {
+        pos = avatar.transform.TransformPoint(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch));
+        rot = (avatar.transform.rotation * OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch)).eulerAngles.y;
     }
 
     void Release()

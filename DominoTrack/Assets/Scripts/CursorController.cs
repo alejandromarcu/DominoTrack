@@ -88,7 +88,10 @@ public class CursorController : MonoBehaviour
 
     public void StopEditing(GameObject obj)
     {
-        SetMode(Mode.Neutral);
+        if (mode != Mode.Inactive)
+        {
+            SetMode(Mode.Neutral);
+        }
     }
 
     void Update()

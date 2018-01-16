@@ -7,13 +7,28 @@ public class MenuController : MonoBehaviour
 
     public GameObject laser;
     public GameObject cameraObject;
+    private GameObject mainMenu;
+    private GameObject confirmRestartMenu;
+    private GameObject confirmExitMenu;
+
+
     public float distanceToCamera;
 
     private bool showing;
 
+    private void Awake()
+    {
+        mainMenu = gameObject.transform.Find("MainMenu").gameObject;
+        mainMenu.transform.localPosition = Vector3.zero;
+        confirmRestartMenu = gameObject.transform.Find("ConfirmRestartMenu").gameObject;
+        confirmRestartMenu.transform.localPosition = Vector3.zero;
+        confirmExitMenu = gameObject.transform.Find("ConfirmExitMenu").gameObject;
+        confirmExitMenu.transform.localPosition = Vector3.zero;
+    }
+
     void Start()
     {
-        ExitMenu();
+        CloseMenu();
     }
 
     void Update()
@@ -22,21 +37,27 @@ public class MenuController : MonoBehaviour
         {
             if (showing)
             {
-                ExitMenu();
+                CloseMenu();
             }
             else
             {
-                MainMenu();
+                OpenMenu();
             }
         }
     }
 
-    public void MainMenu()
+    public void OpenMenu()
     {
         RepositionCamera();
-        gameObject.transform.Find("MainMenu").transform.gameObject.SetActive(true);
         laser.SetActive(true);
         showing = true;
+        MainMenu();
+    }
+
+    public void MainMenu()
+    {
+        HideMenus();
+        mainMenu.gameObject.SetActive(true);
     }
 
     private void RepositionCamera()
@@ -45,22 +66,45 @@ public class MenuController : MonoBehaviour
         fwd.y = 0;
         fwd.Normalize();
         var pos = cameraObject.transform.position + fwd * distanceToCamera;
-
+        
         transform.position = pos;
         transform.LookAt(cameraObject.transform, Vector3.up);
         transform.forward = -transform.forward;
     }
 
-    public void ExitMenu()
+    public void RestartConfirmation()
     {
-        gameObject.transform.Find("MainMenu").transform.gameObject.SetActive(false);
+        HideMenus();
+        confirmRestartMenu.SetActive(true);
+    }
+
+    public void ExitConfirmation()
+    {
+        HideMenus();
+        confirmExitMenu.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void CloseMenu()
+    {
+        HideMenus();
         laser.SetActive(false);
         showing = false;
     }
 
-    // TODO, maybe it should be in a class specific for this menu
     public void RestartTrack()
     {
         Game.instance.Restart();
+    }
+
+    private void HideMenus()
+    {
+        mainMenu.SetActive(false);
+        confirmRestartMenu.SetActive(false);
+        confirmExitMenu.SetActive(false);
     }
 }

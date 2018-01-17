@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 547272325}
   - component: {fileID: 547272324}
   m_Layer: 0
-  m_Name: RestartButton
+  m_Name: StartNewTrackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +753,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 183108276}
-        m_MethodName: RestartConfirmation
+        m_MethodName: NewTrackConfirmation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -915,7 +915,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 320, y: 60}
   savedColor: {r: 0.5735294, g: 0.16446798, b: 0.16446798, a: 1}
-  savedTextUV0: {x: 0.82421875, y: 0.328125}
+  savedTextUV0: {x: 0.15234375, y: 0.35546875}
   savedFill: 0
 --- !u!114 &770696148
 MonoBehaviour:
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.140625, y: 0.20703125}
+  savedTextUV0: {x: 0.5, y: 0.27734375}
   savedFill: 0
 --- !u!114 &851139080
 MonoBehaviour:
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.3046875, y: 0.16015625}
+  savedTextUV0: {x: 0.72265625, y: 0.1015625}
   savedFill: 0
 --- !u!114 &1069015500
 MonoBehaviour:
@@ -2129,7 +2129,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 390, y: 30}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.7421875, y: 0.25}
+  savedTextUV0: {x: 0.18359375, y: 0.14453125}
   savedFill: 0
 --- !u!114 &1412562675
 MonoBehaviour:
@@ -2227,7 +2227,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.1796875, y: 0.2578125}
+  savedTextUV0: {x: 0.6484375, y: 0.2734375}
   savedFill: 0
 --- !u!114 &1535756558
 MonoBehaviour:
@@ -2261,7 +2261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Restart Track
+  m_Text: Start New Track
 --- !u!222 &1535756559
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2951,6 +2951,15 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223400133023532, guid: ca5d71555ad98d049bcc8a76a5a1a8d7, type: 2}
+      propertyPath: m_Name
+      value: ConfirmNewTrackMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114136945151546404, guid: ca5d71555ad98d049bcc8a76a5a1a8d7,
+        type: 2}
+      propertyPath: m_Text
+      value: Are you sure you want to start a new track?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca5d71555ad98d049bcc8a76a5a1a8d7, type: 2}

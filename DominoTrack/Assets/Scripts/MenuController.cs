@@ -8,7 +8,7 @@ public class MenuController : MonoBehaviour
     public GameObject laser;
     public GameObject cameraObject;
     private GameObject mainMenu;
-    private GameObject confirmRestartMenu;
+    private GameObject confirmNewTrackMenu;
     private GameObject confirmExitMenu;
 
 
@@ -20,8 +20,8 @@ public class MenuController : MonoBehaviour
     {
         mainMenu = gameObject.transform.Find("MainMenu").gameObject;
         mainMenu.transform.localPosition = Vector3.zero;
-        confirmRestartMenu = gameObject.transform.Find("ConfirmRestartMenu").gameObject;
-        confirmRestartMenu.transform.localPosition = Vector3.zero;
+        confirmNewTrackMenu = gameObject.transform.Find("ConfirmNewTrackMenu").gameObject;
+        confirmNewTrackMenu.transform.localPosition = Vector3.zero;
         confirmExitMenu = gameObject.transform.Find("ConfirmExitMenu").gameObject;
         confirmExitMenu.transform.localPosition = Vector3.zero;
     }
@@ -72,10 +72,10 @@ public class MenuController : MonoBehaviour
         transform.forward = -transform.forward;
     }
 
-    public void RestartConfirmation()
+    public void NewTrackConfirmation()
     {
         HideMenus();
-        confirmRestartMenu.SetActive(true);
+        confirmNewTrackMenu.SetActive(true);
     }
 
     public void ExitConfirmation()
@@ -104,7 +104,7 @@ public class MenuController : MonoBehaviour
     private void HideMenus()
     {
         mainMenu.SetActive(false);
-        confirmRestartMenu.SetActive(false);
+        confirmNewTrackMenu.SetActive(false);
         confirmExitMenu.SetActive(false);
     }
 }

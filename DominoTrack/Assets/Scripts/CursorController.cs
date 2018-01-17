@@ -39,7 +39,7 @@ public class CursorController : MonoBehaviour
 
     void SetModeFromGameMode(Game.GameMode gameMode)
     {
-        SetMode(gameMode == Game.GameMode.Run ? Mode.Inactive : Mode.Neutral);
+        SetMode(gameMode == Game.GameMode.Build ? Mode.Neutral : Mode.Inactive);
     }
 
     void SetModeInactive()

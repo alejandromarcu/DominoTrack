@@ -6,6 +6,6 @@ public class StartArrowController : MonoBehaviour
 {
     void Update()
     {
-        gameObject.SetActive(Game.isBuilding);
+        gameObject.SetActive(Game.instance.Mode != Game.GameMode.Run);
     }
 }

@@ -915,7 +915,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 320, y: 60}
   savedColor: {r: 0.5735294, g: 0.16446798, b: 0.16446798, a: 1}
-  savedTextUV0: {x: 0.15234375, y: 0.35546875}
+  savedTextUV0: {x: 0.05859375, y: 0.25390625}
   savedFill: 0
 --- !u!114 &770696148
 MonoBehaviour:
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.5, y: 0.27734375}
+  savedTextUV0: {x: 0.3828125, y: 0.27734375}
   savedFill: 0
 --- !u!114 &851139080
 MonoBehaviour:
@@ -1469,7 +1469,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.72265625, y: 0.1015625}
+  savedTextUV0: {x: 0.21484375, y: 0.04296875}
   savedFill: 0
 --- !u!114 &1069015500
 MonoBehaviour:
@@ -1717,6 +1717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startArrowModel: {fileID: 2109087111}
   dominoModel: {fileID: 1826420123}
+  menuController: {fileID: 183108276}
 --- !u!114 &1275884229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,7 +2130,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 390, y: 30}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.18359375, y: 0.14453125}
+  savedTextUV0: {x: 0, y: 0.10546875}
   savedFill: 0
 --- !u!114 &1412562675
 MonoBehaviour:
@@ -2227,7 +2228,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.6484375, y: 0.2734375}
+  savedTextUV0: {x: 0.5, y: 0.28515625}
   savedFill: 0
 --- !u!114 &1535756558
 MonoBehaviour:

@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    public enum GameMode { Build, Run };
+    public enum GameMode { Build, Run, Menu };
     public delegate void GameModeChangedAction(GameMode mode);
     public static event GameModeChangedAction OnModeChanged;
     public GameObject startArrowModel;
     public GameObject dominoModel;
+    public MenuController menuController;
 
     public static Track track
     {
@@ -37,6 +38,7 @@ public class Game : MonoBehaviour
     }
     public static bool isBuilding { get { return instance.mode == GameMode.Build; } }
     public bool kickOffButtonOverloaded { get; set; }
+    private GameMode modeBeforeMenu;
 
     void Start()
     {
@@ -66,6 +68,20 @@ public class Game : MonoBehaviour
                 Mode = GameMode.Build;
             }
         }
+        if (OVRInput.GetDown(OVRInput.RawButton.Start))
+        {
+            if (menuController.showing)
+            {
+                menuController.CloseMenu();
+                Mode = modeBeforeMenu;
+            } else
+            {
+                modeBeforeMenu = Mode;
+                Mode = GameMode.Menu;
+                menuController.OpenMenu();
+            }
+        }
+
     }
     public void Restart()
     {

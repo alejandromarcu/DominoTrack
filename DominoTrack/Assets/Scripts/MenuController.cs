@@ -14,7 +14,7 @@ public class MenuController : MonoBehaviour
 
     public float distanceToCamera;
 
-    private bool showing;
+    public bool showing { get; private set; }
 
     private void Awake()
     {
@@ -31,23 +31,9 @@ public class MenuController : MonoBehaviour
         CloseMenu();
     }
 
-    void Update()
-    {
-        if (OVRInput.GetDown(OVRInput.RawButton.Start))
-        {
-            if (showing)
-            {
-                CloseMenu();
-            }
-            else
-            {
-                OpenMenu();
-            }
-        }
-    }
-
     public void OpenMenu()
     {
+        Time.timeScale = 0;
         RepositionCamera();
         laser.SetActive(true);
         showing = true;
@@ -66,7 +52,7 @@ public class MenuController : MonoBehaviour
         fwd.y = 0;
         fwd.Normalize();
         var pos = cameraObject.transform.position + fwd * distanceToCamera;
-        
+
         transform.position = pos;
         transform.LookAt(cameraObject.transform, Vector3.up);
         transform.forward = -transform.forward;
@@ -94,6 +80,7 @@ public class MenuController : MonoBehaviour
         HideMenus();
         laser.SetActive(false);
         showing = false;
+        Time.timeScale = 1;
     }
 
     public void RestartTrack()

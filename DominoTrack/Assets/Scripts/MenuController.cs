@@ -12,8 +12,6 @@ public class MenuController : MonoBehaviour
     private GameObject confirmExitMenu;
     private GameObject[] instructionsMenu = new GameObject[4];
 
-
-
     public float distanceToCamera;
 
     public bool showing { get; private set; }
@@ -42,7 +40,7 @@ public class MenuController : MonoBehaviour
     public void OpenMenu()
     {
         Time.timeScale = 0;
-        RepositionCamera();
+        RepositionMenu();
         laser.SetActive(true);
         showing = true;
         MainMenu();
@@ -54,7 +52,7 @@ public class MenuController : MonoBehaviour
         mainMenu.gameObject.SetActive(true);
     }
 
-    private void RepositionCamera()
+    private void RepositionMenu()
     {
         var fwd = cameraObject.transform.forward;
         fwd.y = 0;
@@ -63,7 +61,11 @@ public class MenuController : MonoBehaviour
 
         transform.position = pos;
         transform.LookAt(cameraObject.transform, Vector3.up);
-        transform.forward = -transform.forward;
+        transform.forward = -transform.forward; 
+        // Move it up so it's less likely to have the board on the way
+        var tmp = transform.position;
+        tmp.y += 0.3f;
+        transform.position = tmp;
     }
 
     public void Instructions(int page)

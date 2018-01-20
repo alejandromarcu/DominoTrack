@@ -10,6 +10,8 @@ public class MenuController : MonoBehaviour
     private GameObject mainMenu;
     private GameObject confirmNewTrackMenu;
     private GameObject confirmExitMenu;
+    private GameObject[] instructionsMenu = new GameObject[4];
+
 
 
     public float distanceToCamera;
@@ -24,6 +26,12 @@ public class MenuController : MonoBehaviour
         confirmNewTrackMenu.transform.localPosition = Vector3.zero;
         confirmExitMenu = gameObject.transform.Find("ConfirmExitMenu").gameObject;
         confirmExitMenu.transform.localPosition = Vector3.zero;
+
+        for (int i = 1; i <= instructionsMenu.Length; i++)
+        {
+            instructionsMenu[i - 1] = gameObject.transform.Find("Instructions" + i + "Menu").gameObject;
+            instructionsMenu[i - 1].transform.localPosition = Vector3.zero;
+        }
     }
 
     void Start()
@@ -56,6 +64,12 @@ public class MenuController : MonoBehaviour
         transform.position = pos;
         transform.LookAt(cameraObject.transform, Vector3.up);
         transform.forward = -transform.forward;
+    }
+
+    public void Instructions(int page)
+    {
+        HideMenus();
+        instructionsMenu[page-1].SetActive(true);
     }
 
     public void NewTrackConfirmation()
@@ -93,5 +107,9 @@ public class MenuController : MonoBehaviour
         mainMenu.SetActive(false);
         confirmNewTrackMenu.SetActive(false);
         confirmExitMenu.SetActive(false);
+        for (int i = 1; i <= instructionsMenu.Length; i++)
+        {
+            instructionsMenu[i-1].SetActive(false);
+        }
     }
 }

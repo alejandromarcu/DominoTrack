@@ -39,7 +39,7 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
-        Time.timeScale = 0;
+       // Time.timeScale = 0;
         RepositionMenu();
         laser.SetActive(true);
         showing = true;
@@ -96,7 +96,7 @@ public class MenuController : MonoBehaviour
         HideMenus();
         laser.SetActive(false);
         showing = false;
-        Time.timeScale = 1;
+       // Time.timeScale = 1;
     }
 
     public void RestartTrack()

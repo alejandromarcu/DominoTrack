@@ -73,11 +73,14 @@ public class Game : MonoBehaviour
             if (menuController.showing)
             {
                 menuController.CloseMenu();
-                Mode = modeBeforeMenu;
+                // Maybe it's better not to set this mode and allow the game to continue normally
+                // when showing the menu, so that the user can follow the instructions.
+                // Not deleting the code yet to make it easier to revert if I change my mind.
+              //  Mode = modeBeforeMenu;
             } else
             {
-                modeBeforeMenu = Mode;
-                Mode = GameMode.Menu;
+              //  modeBeforeMenu = Mode;
+              //  Mode = GameMode.Menu;
                 menuController.OpenMenu();
             }
         }

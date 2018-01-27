@@ -168,7 +168,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 100, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.26953125, y: 0}
+  savedTextUV0: {x: 0.3984375, y: 0}
   savedFill: 0
 --- !u!114 &4718637
 MonoBehaviour:
@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 163849734}
   - component: {fileID: 163849735}
   - component: {fileID: 163849733}
+  - component: {fileID: 163849739}
   m_Layer: 0
   m_Name: DominoCube
   m_TagString: domino
@@ -651,7 +652,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -720,6 +721,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1360537683}
   m_GameObject: {fileID: 163849731}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &163849739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163849731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503ea6418d27594caa33b93cac1b06a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSpatialization: 1
+  gain: 0
+  useInvSqr: 1
+  near: 1
+  far: 800
+  volumetricRadius: 0
+  enableRfl: 0
 --- !u!1 &183108275
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +844,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 100, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.26953125, y: 0}
+  savedTextUV0: {x: 0.3984375, y: 0}
   savedFill: 0
 --- !u!114 &232744311
 MonoBehaviour:
@@ -1361,7 +1380,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 319.44885, y: 40}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.03515625, y: 0.28125}
+  savedTextUV0: {x: 0.1875, y: 0.390625}
   savedFill: 0
 --- !u!114 &620822374
 MonoBehaviour:
@@ -1523,7 +1542,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 320, y: 60}
   savedColor: {r: 0.5735294, g: 0.16446798, b: 0.16446798, a: 1}
-  savedTextUV0: {x: 0.5, y: 0}
+  savedTextUV0: {x: 0.796875, y: 0.1015625}
   savedFill: 0
 --- !u!114 &770696148
 MonoBehaviour:
@@ -1782,7 +1801,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.9609375, y: 0.3515625}
+  savedTextUV0: {x: 0.7578125, y: 0.10546875}
   savedFill: 0
 --- !u!114 &851139080
 MonoBehaviour:
@@ -1878,7 +1897,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 360, y: 160}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.27734375, y: 0.14453125}
+  savedTextUV0: {x: 0.921875, y: 0.1015625}
   savedFill: 0
 --- !u!114 &903770548
 MonoBehaviour:
@@ -2179,7 +2198,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.97265625, y: 0.2109375}
+  savedTextUV0: {x: 0.66015625, y: 0.1640625}
   savedFill: 0
 --- !u!114 &1069015500
 MonoBehaviour:
@@ -2935,7 +2954,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 380, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.8671875, y: 0.44140625}
+  savedTextUV0: {x: 0.6875, y: 0.06640625}
   savedFill: 0
 --- !u!114 &1286537773
 MonoBehaviour:
@@ -3378,7 +3397,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 390, y: 30}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.83984375, y: 0.2109375}
+  savedTextUV0: {x: 0.19921875, y: 0.28515625}
   savedFill: 0
 --- !u!114 &1412562675
 MonoBehaviour:
@@ -3973,7 +3992,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 100, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.4375, y: 0.41796875}
+  savedTextUV0: {x: 0, y: 0.0078125}
   savedFill: 0
 --- !u!114 &1521250862
 MonoBehaviour:
@@ -4070,7 +4089,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 160, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.7578125, y: 0.2265625}
+  savedTextUV0: {x: 0.921875, y: 0.14453125}
   savedFill: 0
 --- !u!114 &1535756558
 MonoBehaviour:
@@ -4307,7 +4326,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 100, y: 30}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.26953125, y: 0}
+  savedTextUV0: {x: 0.3984375, y: 0}
   savedFill: 0
 --- !u!114 &1660426650
 MonoBehaviour:
@@ -4581,7 +4600,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1826420124}
-  - component: {fileID: 1826420126}
   m_Layer: 0
   m_Name: Domino
   m_TagString: domino
@@ -4603,86 +4621,6 @@ Transform:
   m_Father: {fileID: 1154671826}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1826420126
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1826420123}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cc10fc6180351d14f9a72602483c4b8b, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!1 &1839371613
 GameObject:
   m_ObjectHideFlags: 0

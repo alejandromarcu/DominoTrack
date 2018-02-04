@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Domino
 {
@@ -38,10 +35,17 @@ public class Domino
     public Vector3 forward { get { return gameObject.transform.forward; } }
     private Rigidbody rigidbody;
 
-    public Domino(Vector3 worldPosition, float worldRotationY)
+    public Domino(Vector3 pos, float rot, Space relativeTo)
     {
-        this.position = worldPosition;
-        this.rotationY = worldRotationY;
+        if (relativeTo == Space.Self)
+        {
+            localPosition = pos;
+            localRotationY = rot;
+        } else
+        {
+            position = pos;
+            rotationY = rot;
+        }
     }
 
     public void ResetGameObject()
@@ -129,5 +133,18 @@ public class Domino
     public bool MatchesGameObject(GameObject obj)
     {
         return obj == gameObject;
+    }
+
+    public SavedGame.SavedDomino Save()
+    {
+        var sd = new SavedGame.SavedDomino();
+        sd.position = localPosition;
+        sd.rotationY = localRotationY;
+        return sd;
+    }
+
+    public static Domino LoadFrom(SavedGame.SavedDomino sd)
+    {
+        return new Domino(sd.position, sd.rotationY, Space.Self);
     }
 }

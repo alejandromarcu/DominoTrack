@@ -160,7 +160,7 @@ public class CursorController : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
-            var domino = new Domino(placeCursor.transform.position, placeCursor.transform.rotation.eulerAngles.y);
+            var domino = new Domino(placeCursor.transform.position, placeCursor.transform.rotation.eulerAngles.y, Space.World);
             Game.track.Place(domino);
             SetMode(Mode.JustPlaced);
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MagicBoardController : MonoBehaviour
@@ -11,6 +9,7 @@ public class MagicBoardController : MonoBehaviour
     public float initialYPosition = 1.0f;
 
     private bool isCameraInitialized = false;
+    private List<GameObject> tiles = new List<GameObject>(); 
 
     void OnEnable()
     {
@@ -22,9 +21,15 @@ public class MagicBoardController : MonoBehaviour
         Track.OnDominoPlaced -= OnDominoPlaced;
     }
 
+    private void Start()
+    {
+        // It's active by default just to make it easier in the editor
+        transform.Find("Tile").gameObject.SetActive(false);
+    }
+
     private void InitPositionInFrontOfCamera()
     {
-        var tile = transform.Find("Tile");
+        var tile = tiles[0].transform;
         var fwd = cameraObject.transform.forward;
         fwd.y = 0;
         fwd.Normalize();
@@ -36,12 +41,36 @@ public class MagicBoardController : MonoBehaviour
         transform.LookAt(cameraAtBoardHeight, Vector3.up);
     }
 
+    private void AddTile(Vector3 localPosition)
+    {
+        var tile = transform.Find("Tile").gameObject;
+        var position = transform.TransformPoint(localPosition);
+        var newTile = Instantiate(tile, position, tile.transform.rotation, transform);
+        newTile.SetActive(true);
+        tiles.Add(newTile);
+    }
+
+    private void AddFirstTile()
+    {
+        AddTile(Vector3.zero);
+    }
+
     private void AddFirstPiece()
     {
-        var tile = transform.Find("Tile");
+        var tile = tiles[0].transform;
         var pos = transform.TransformPoint(0f, tile.localScale.y / 2, 0f);
-        Domino d = new Domino(pos, transform.rotation.eulerAngles.y + 180);
+        Domino d = new Domino(pos, transform.rotation.eulerAngles.y + 180, Space.World);
         Game.track.Place(d);
+    }
+
+    private void Init()
+    {
+        if (Game.instance.Mode != Game.GameMode.Load)
+        {
+            AddFirstTile();
+            InitPositionInFrontOfCamera();
+            AddFirstPiece();
+        }
     }
 
     private void Update()
@@ -55,14 +84,19 @@ public class MagicBoardController : MonoBehaviour
         }
         if (cameraObject.transform.position.magnitude > 0.001f)
         {
-            InitPositionInFrontOfCamera();
-            AddFirstPiece();
+            Init();
             isCameraInitialized = true;
         }
     }
 
     void OnDominoPlaced(Domino d)
     {
+        if (Game.instance.Mode == Game.GameMode.Load)
+        {
+            // Don't run during load, since the tiles will be loaded as well.
+            return;
+        }
+
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
@@ -125,8 +159,32 @@ public class MagicBoardController : MonoBehaviour
         }
 
         var newPos = tilePos + new Vector3(dx * tileSize.x, 0, dz * tileSize.z);
-        var newPosWorld = transform.TransformPoint(newPos);
-        Instantiate(tile, newPosWorld, tile.transform.rotation, tile.transform.parent);
+        AddTile(newPos);
     }
 
+    public void Restart()
+    {
+        Game.track.Restart();
+        tiles.ForEach(tile => Destroy(tile));
+        tiles.Clear();
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        Init();
+    }
+
+    public SavedGame.SavedMagicBoard Save()
+    {
+        var smb = new SavedGame.SavedMagicBoard();
+        smb.position = transform.position;
+        smb.rotation = transform.rotation;
+        tiles.ForEach(tile => smb.tilePositions.Add(tile.transform.localPosition));
+        return smb;
+    }
+
+    public void LoadFrom(SavedGame.SavedMagicBoard smb)
+    {
+        transform.position = smb.position;
+        transform.rotation = smb.rotation;
+        smb.tilePositions.ForEach(pos => AddTile(pos));
+    }
 }

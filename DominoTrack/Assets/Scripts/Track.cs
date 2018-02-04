@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Track
@@ -51,7 +50,7 @@ public class Track
 
         float d = FindNextAvailablePosition(pos, last.forward, angle);
 
-        var newPiece = new Domino(pos + last.forward * d, rotation);
+        var newPiece = new Domino(pos + last.forward * d, rotation, Space.World);
         Place(newPiece);
         return newPiece;
     }
@@ -108,6 +107,12 @@ public class Track
         Freeze();
     }
 
+    public void Restart()
+    {
+        track.ForEach(domino => domino.DestroyGameObject());
+        track.Clear();
+    }
+
     public void Freeze()
     {
         track.ForEach(domino => domino.Freeze());
@@ -140,5 +145,19 @@ public class Track
     {
         Unfreeze();
         track.ForEach(d => d.KickOffIfNeeded());
+    }
+
+    public SavedGame.SavedTrack Save()
+    {
+        var st = new SavedGame.SavedTrack();
+        track.ForEach(d => st.track.Add(d.Save()));
+        return st;
+    }
+
+    public Track LoadFrom(SavedGame.SavedTrack savedTrack)
+    {
+        track.Clear();
+        savedTrack.track.ForEach(sd => Place(Domino.LoadFrom(sd)));
+        return this;
     }
 }

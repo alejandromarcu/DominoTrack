@@ -20,6 +20,7 @@ public class SavedGame {
     {
         public Vector3 position;
         public float rotationY;
+        public Color color;
     }
 
     [System.Serializable]

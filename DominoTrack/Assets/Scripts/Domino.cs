@@ -35,18 +35,25 @@ public class Domino
     private GameObject startArrow;
     public Vector3 forward { get { return gameObject.transform.forward; } }
     private Rigidbody rigidbody;
+    private Color color;
 
-    public Domino(Vector3 pos, float rot, Space relativeTo)
+    public Domino(Vector3 pos, float rot, Space relativeTo, Color color)
     {
         if (relativeTo == Space.Self)
         {
             localPosition = pos;
             localRotationY = rot;
-        } else
+        }
+        else
         {
             position = pos;
             rotationY = rot;
         }
+        this.color = color;
+    }
+
+    public Domino(Vector3 pos, float rot, Space relativeTo) : this(pos, rot, relativeTo, Game.track.currentDominoColor)
+    {       
     }
 
     public void ResetGameObject()
@@ -55,7 +62,7 @@ public class Domino
         var rotation = Quaternion.Euler(0f, rotationY, 0f);
         gameObject = MonoBehaviour.Instantiate(Game.instance.dominoModel, position, rotation, Game.instance.dominoModel.transform.parent);
         gameObject.SetActive(true);
-
+        gameObject.GetComponentInChildren<Renderer>().material.color = color;
         rigidbody = gameObject.GetComponentInChildren<Rigidbody>();
         RefreshStartArrow();
     }
@@ -142,11 +149,12 @@ public class Domino
         var sd = new SavedGame.SavedDomino();
         sd.position = localPosition;
         sd.rotationY = localRotationY;
+        sd.color = color;
         return sd;
     }
 
     public static Domino LoadFrom(SavedGame.SavedDomino sd)
     {
-        return new Domino(sd.position, sd.rotationY, Space.Self);
+        return new Domino(sd.position, sd.rotationY, Space.Self, sd.color);
     }
 }

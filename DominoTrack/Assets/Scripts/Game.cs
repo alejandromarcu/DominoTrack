@@ -52,7 +52,6 @@ public class Game : MonoBehaviour
     void Update()
     {
         // TODO: delete, this is just to easily test loading and saving
-        /*
         if (OVRInput.GetDown(OVRInput.RawButton.X)) {
             Debug.Log("Load");
             SavedGame.Load();
@@ -62,7 +61,12 @@ public class Game : MonoBehaviour
             Debug.Log("Save");
             SavedGame.Save();
         }
-        */
+        
+        // TODO: delete, this is just to easily test color
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            track.currentDominoColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        }
 
         if (mode == GameMode.Build)
         {

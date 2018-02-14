@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -22,10 +23,12 @@ public class Track
     public bool isEmpty { get { return track.Count == 0; } }
     public GameObject trackGameObject { private set; get; }
     public int count { get { return track.Count;  } }
+    public Color currentDominoColor;
 
     public Track(GameObject track)
     {
         trackGameObject = track;
+        resetCurrentDominoColor();
     }
 
     public void Place(Domino d)
@@ -110,8 +113,14 @@ public class Track
         Freeze();
     }
 
+    private void resetCurrentDominoColor()
+    {
+        currentDominoColor = new Color(1f, 1f, 0.9f); // TODO constant
+    }
+
     public void Restart()
     {
+        resetCurrentDominoColor();
         track.ForEach(domino => domino.DestroyGameObject());
         track.Clear();
     }

@@ -160,6 +160,8 @@ public class CursorController : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
+            byte[] clip = { 255, 0, 255, 0, 255, 0, 255, 0 };
+            OVRHaptics.RightChannel.Preempt(new OVRHapticsClip(clip, 8));
             var domino = new Domino(placeCursor.transform.position, placeCursor.transform.rotation.eulerAngles.y, Space.World);
             Game.track.Place(domino);
             SetMode(Mode.JustPlaced);

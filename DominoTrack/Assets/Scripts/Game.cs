@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
     void Update()
     {
         // TODO: delete, this is just to easily test loading and saving
+        /*
         if (OVRInput.GetDown(OVRInput.RawButton.X)) {
             Debug.Log("Load");
             SavedGame.Load();
@@ -60,6 +61,7 @@ public class Game : MonoBehaviour
             Debug.Log("Save");
             SavedGame.Save();
         }
+        */
 
         if (mode == GameMode.Build)
         {

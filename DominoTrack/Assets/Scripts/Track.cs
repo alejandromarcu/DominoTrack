@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Track
 {
@@ -20,6 +21,7 @@ public class Track
     }
     public bool isEmpty { get { return track.Count == 0; } }
     public GameObject trackGameObject { private set; get; }
+    public int count { get { return track.Count;  } }
 
     public Track(GameObject track)
     {
@@ -100,6 +102,7 @@ public class Track
 
     public void Reset()
     {
+        Analytics.CustomEvent("reset");
         foreach (var domino in track)
         {
             domino.ResetGameObject();
@@ -143,6 +146,7 @@ public class Track
 
     public void KickOff()
     {
+        Analytics.CustomEvent("kickOff", new Dictionary<string, object> { { "pieces", track.Count } });
         Unfreeze();
         track.ForEach(d => d.KickOffIfNeeded());
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class MenuController : MonoBehaviour
 {
@@ -39,7 +40,8 @@ public class MenuController : MonoBehaviour
 
     public void OpenMenu()
     {
-       // Time.timeScale = 0;
+        Analytics.CustomEvent("openMenu");
+        // Time.timeScale = 0;
         RepositionMenu();
         laser.SetActive(true);
         showing = true;

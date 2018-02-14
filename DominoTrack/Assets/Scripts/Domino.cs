@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Domino
 {
@@ -86,6 +87,7 @@ public class Domino
 
     public void ToggleStart()
     {
+        Analytics.CustomEvent("toggleStart");
         switch (startMode)
         {
             case StartModes.NoStart:

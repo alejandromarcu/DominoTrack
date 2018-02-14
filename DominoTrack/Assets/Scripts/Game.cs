@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Game : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public class Game : MonoBehaviour
     }
     public void Restart()
     {
+        Analytics.CustomEvent("restart", new Dictionary<string, object> { { "pieces", track.count } });
         if (mode != GameMode.Load)
         {
             mode = GameMode.Build;

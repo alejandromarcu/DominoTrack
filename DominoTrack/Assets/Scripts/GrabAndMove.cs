@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class GrabAndMove : MonoBehaviour
 {
@@ -110,5 +111,6 @@ public class GrabAndMove : MonoBehaviour
         {
             OnGrabAndMoveEnd();
         }
+        Analytics.CustomEvent("grabAndMove");
     }
 }

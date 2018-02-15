@@ -23,7 +23,7 @@ public class Track
     public bool isEmpty { get { return track.Count == 0; } }
     public GameObject trackGameObject { private set; get; }
     public int count { get { return track.Count;  } }
-    public Color currentDominoColor;
+    public Color32 currentDominoColor;
 
     public Track(GameObject track)
     {
@@ -115,7 +115,7 @@ public class Track
 
     private void resetCurrentDominoColor()
     {
-        currentDominoColor = new Color(1f, 1f, 0.9f); // TODO constant
+        currentDominoColor = ColorMenuController.colors[0];
     }
 
     public void Restart()

@@ -5,17 +5,20 @@ using UnityEngine.Analytics;
 
 public class MenuController : MonoBehaviour
 {
-
     public GameObject laser;
     public GameObject cameraObject;
     private GameObject mainMenu;
     private GameObject confirmNewTrackMenu;
     private GameObject confirmExitMenu;
+    private GameObject colorMenu;
     private GameObject[] instructionsMenu = new GameObject[4];
 
     public float distanceToCamera;
 
     public bool showing { get; private set; }
+
+    private enum State { None, Main, Color };
+    private State state = State.None;
 
     private void Awake()
     {
@@ -25,6 +28,8 @@ public class MenuController : MonoBehaviour
         confirmNewTrackMenu.transform.localPosition = Vector3.zero;
         confirmExitMenu = gameObject.transform.Find("ConfirmExitMenu").gameObject;
         confirmExitMenu.transform.localPosition = Vector3.zero;
+        colorMenu = gameObject.transform.Find("ColorMenu").gameObject;
+        colorMenu.transform.localPosition = Vector3.zero;
 
         for (int i = 1; i <= instructionsMenu.Length; i++)
         {
@@ -38,20 +43,60 @@ public class MenuController : MonoBehaviour
         CloseMenu();
     }
 
-    public void OpenMenu()
+    public void ToggleMainMenu()
+    {
+        if (state == State.Main)
+        {
+            CloseMenu();
+        } else
+        {
+            OpenMenu();
+        }
+    }
+
+    public void ToggleColorMenu()
+    {
+        if (state == State.Color)
+        {
+            CloseMenu();
+        }
+        else
+        {
+            OpenColorMenu();
+        }
+    }
+
+    private void OpenMenu()
     {
         Analytics.CustomEvent("openMenu");
         // Time.timeScale = 0;
         RepositionMenu();
         laser.SetActive(true);
         showing = true;
+        state = State.Main;
         MainMenu();
     }
 
-    public void MainMenu()
+    private void MainMenu()
     {
         HideMenus();
         mainMenu.gameObject.SetActive(true);
+    }
+
+    private void OpenColorMenu()
+    {
+        Analytics.CustomEvent("openColorMenu");
+        RepositionMenu();
+        laser.SetActive(true);
+        showing = true;
+        state = State.Color;
+        ColorMenu();
+    }
+
+    private void ColorMenu()
+    {
+        HideMenus();
+        colorMenu.gameObject.SetActive(true);
     }
 
     private void RepositionMenu()
@@ -98,6 +143,7 @@ public class MenuController : MonoBehaviour
         HideMenus();
         laser.SetActive(false);
         showing = false;
+        state = State.None;
        // Time.timeScale = 1;
     }
 
@@ -111,6 +157,7 @@ public class MenuController : MonoBehaviour
         mainMenu.SetActive(false);
         confirmNewTrackMenu.SetActive(false);
         confirmExitMenu.SetActive(false);
+        colorMenu.SetActive(false);
         for (int i = 1; i <= instructionsMenu.Length; i++)
         {
             instructionsMenu[i-1].SetActive(false);

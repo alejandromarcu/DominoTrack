@@ -158,6 +158,7 @@ public class CursorController : MonoBehaviour
 
     private void HandlePlaceMode()
     {
+        placeCursor.GetComponentInChildren<Renderer>().material.color = Game.track.currentDominoColor;
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             byte[] clip = { 255, 0, 255, 0, 255, 0, 255, 0 };

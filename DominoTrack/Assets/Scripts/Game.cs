@@ -61,12 +61,6 @@ public class Game : MonoBehaviour
             Debug.Log("Save");
             SavedGame.Save();
         }
-        
-        // TODO: delete, this is just to easily test color
-        if (OVRInput.GetDown(OVRInput.RawButton.B))
-        {
-            track.currentDominoColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-        }
 
         if (mode == GameMode.Build)
         {
@@ -89,6 +83,8 @@ public class Game : MonoBehaviour
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Start))
         {
+            menuController.ToggleMainMenu();
+            /*
             if (menuController.showing)
             {
                 menuController.CloseMenu();
@@ -102,6 +98,11 @@ public class Game : MonoBehaviour
               //  Mode = GameMode.Menu;
                 menuController.OpenMenu();
             }
+            */
+        }
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            menuController.ToggleColorMenu();
         }
 
     }

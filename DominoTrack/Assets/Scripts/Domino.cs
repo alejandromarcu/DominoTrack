@@ -35,9 +35,9 @@ public class Domino
     private GameObject startArrow;
     public Vector3 forward { get { return gameObject.transform.forward; } }
     private Rigidbody rigidbody;
-    private Color color;
+    private Color32 color;
 
-    public Domino(Vector3 pos, float rot, Space relativeTo, Color color)
+    public Domino(Vector3 pos, float rot, Space relativeTo, Color32 color)
     {
         if (relativeTo == Space.Self)
         {

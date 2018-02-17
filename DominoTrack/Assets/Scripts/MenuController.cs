@@ -117,6 +117,7 @@ public class MenuController : MonoBehaviour
 
     public void Instructions(int page)
     {
+        Analytics.CustomEvent("openInstructions" + page);
         HideMenus();
         instructionsMenu[page-1].SetActive(true);
     }

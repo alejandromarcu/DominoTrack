@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
     void Update()
     {
         // TODO: delete, this is just to easily test loading and saving
-        if (OVRInput.GetDown(OVRInput.RawButton.X)) {
+     /*   if (OVRInput.GetDown(OVRInput.RawButton.X)) {
             Debug.Log("Load");
             SavedGame.Load();
         }
@@ -61,7 +61,7 @@ public class Game : MonoBehaviour
             Debug.Log("Save");
             SavedGame.Save();
         }
-
+        */
         if (mode == GameMode.Build)
         {
             if (!kickOffButtonOverloaded && OVRInput.GetDown(OVRInput.RawButton.A))
@@ -143,5 +143,16 @@ public class Game : MonoBehaviour
         track.LoadFrom(sg.track);
         magicBoard.LoadFrom(sg.magicBoard);
         Mode = GameMode.Build;
+    }
+
+    void OnApplicationQuit()
+    {
+        Analytics.CustomEvent("quit", new Dictionary<string, object> {
+            { "pieces", track.count },
+            { "time", Time.time },
+            { "path", Application.persistentDataPath }
+        });
+
+        Debug.Log("Application ending after " + Time.time + " seconds");
     }
 }

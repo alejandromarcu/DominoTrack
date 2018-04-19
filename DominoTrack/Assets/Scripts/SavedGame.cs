@@ -40,9 +40,9 @@ public class SavedGame {
         Debug.Log("Saved track in " + Application.persistentDataPath);
     }
 
-    public static void Load()
+    public static void Load(string fileName)
     {
-        string s = System.IO.File.ReadAllText(Application.persistentDataPath + "/qq.json");
+        string s = System.IO.File.ReadAllText(fileName);
         SavedGame sg = JsonUtility.FromJson<SavedGame>(s);
         Game.instance.LoadFrom(sg);
     }

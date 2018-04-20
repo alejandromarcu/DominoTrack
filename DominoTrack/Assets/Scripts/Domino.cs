@@ -37,7 +37,7 @@ public class Domino
     private Rigidbody rigidbody;
     private Color32 color;
 
-    public Domino(Vector3 pos, float rot, Space relativeTo, Color32 color)
+    private Domino(Vector3 pos, float rot, Space relativeTo, Color32 color, StartModes startMode)
     {
         if (relativeTo == Space.Self)
         {
@@ -50,9 +50,10 @@ public class Domino
             rotationY = rot;
         }
         this.color = color;
+        this.startMode = startMode;
     }
 
-    public Domino(Vector3 pos, float rot, Space relativeTo) : this(pos, rot, relativeTo, Game.track.currentDominoColor)
+    public Domino(Vector3 pos, float rot, Space relativeTo) : this(pos, rot, relativeTo, Game.track.currentDominoColor, StartModes.NoStart)
     {       
     }
 
@@ -150,11 +151,14 @@ public class Domino
         sd.position = localPosition;
         sd.rotationY = localRotationY;
         sd.color = color;
+        sd.startMode = startMode.ToString();
         return sd;
     }
 
     public static Domino LoadFrom(SavedGame.SavedDomino sd)
     {
-        return new Domino(sd.position, sd.rotationY, Space.Self, sd.color);
+        StartModes startMode = sd.startMode == StartModes.Forward.ToString() ? StartModes.Forward
+            : (sd.startMode == StartModes.Backward.ToString() ? StartModes.Backward : StartModes.NoStart);
+        return new Domino(sd.position, sd.rotationY, Space.Self, sd.color, startMode);
     }
 }

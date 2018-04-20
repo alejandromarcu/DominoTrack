@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 [System.Serializable]
 public class SavedGame {
@@ -21,6 +22,7 @@ public class SavedGame {
         public Vector3 position;
         public float rotationY;
         public Color32 color;
+        public string startMode;
     }
 
     [System.Serializable]
@@ -37,7 +39,6 @@ public class SavedGame {
         string json = JsonUtility.ToJson(sg, true);
 
         System.IO.File.WriteAllText(fileName, json);
-        Debug.Log("Saved " + fileName);
     }
 
     public static void Load(string fileName)

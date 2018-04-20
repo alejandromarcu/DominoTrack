@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization;
+using UnityEngine.Analytics;
 
 [System.Serializable]
 public class SavedGame {
@@ -35,6 +36,7 @@ public class SavedGame {
 
     public static void Save(string fileName)
     {
+        Analytics.CustomEvent("saveTrack");
         SavedGame sg = Game.instance.Save(fileName);
         string json = JsonUtility.ToJson(sg, true);
 
@@ -43,6 +45,7 @@ public class SavedGame {
 
     public static void Load(string fileName)
     {
+        Analytics.CustomEvent("loadTrack");
         string s = System.IO.File.ReadAllText(fileName);
         SavedGame sg = JsonUtility.FromJson<SavedGame>(s);
         Game.instance.LoadFrom(fileName, sg);

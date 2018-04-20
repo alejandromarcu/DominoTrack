@@ -20,7 +20,7 @@ public class LoadFileList : MonoBehaviour {
         int i = 0;
         int colWidth = (int) GetComponent<RectTransform>().rect.width / columns;
         int rowHeight = (int) prefabFileButton.GetComponent<RectTransform>().rect.height;
-        Debug.Log("Row height" + rowHeight);
+
         foreach (string file in files)
         {
             GameObject btn = Instantiate(prefabFileButton, gameObject.transform);

@@ -15,12 +15,13 @@ public class SaveTrackMenuController : MonoBehaviour {
             fileNameText.text = Game.instance.fileName;
         } else
         {
-            fileNameText.text = "Track " + (int)Time.time;
+            fileNameText.text = "";
         }
     }
 
     public void Save()
     {
+        if (fileNameText.text.Length == 0) return;
         SavedGame.Save(Application.persistentDataPath + "/" + fileNameText.text + ".json");
         Game.instance.menuController.CloseMenu();
     }

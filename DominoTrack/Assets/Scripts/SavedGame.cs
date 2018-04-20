@@ -31,19 +31,19 @@ public class SavedGame {
         public List<Vector3> tilePositions = new List<Vector3>();
     }
 
-    public static void Save()
+    public static void Save(string fileName)
     {
-        SavedGame sg = Game.instance.Save();
+        SavedGame sg = Game.instance.Save(fileName);
         string json = JsonUtility.ToJson(sg, true);
 
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/qq.json", json);
-        Debug.Log("Saved track in " + Application.persistentDataPath);
+        System.IO.File.WriteAllText(fileName, json);
+        Debug.Log("Saved " + fileName);
     }
 
     public static void Load(string fileName)
     {
         string s = System.IO.File.ReadAllText(fileName);
         SavedGame sg = JsonUtility.FromJson<SavedGame>(s);
-        Game.instance.LoadFrom(sg);
+        Game.instance.LoadFrom(fileName, sg);
     }
 }

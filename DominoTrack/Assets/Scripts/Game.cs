@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using System.IO;
 
 public class Game : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class Game : MonoBehaviour
     public bool kickOffButtonOverloaded { get; set; }
     private GameMode modeBeforeMenu;
     private MagicBoardController magicBoard;
+    public string fileName { get; private set; }
 
     void Start()
     {
@@ -51,17 +53,6 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        // TODO: delete, this is just to easily test loading and saving
-     /*   if (OVRInput.GetDown(OVRInput.RawButton.X)) {
-            Debug.Log("Load");
-            SavedGame.Load();
-        }
-        if (OVRInput.GetDown(OVRInput.RawButton.Y))
-        {
-            Debug.Log("Save");
-            SavedGame.Save();
-        }
-        */
         if (mode == GameMode.Build)
         {
             if (!kickOffButtonOverloaded && OVRInput.GetDown(OVRInput.RawButton.A))
@@ -120,11 +111,13 @@ public class Game : MonoBehaviour
             menuController.CloseMenu();
         }
         magicBoard.Restart();
+        this.fileName = null;
     }
 
    
-    public SavedGame Save()
+    public SavedGame Save(string fileName)
     {
+        this.fileName = Path.GetFileNameWithoutExtension(fileName);
         var sg = new SavedGame();
         sg.version = 1;
         sg.position = gameObject.transform.position;
@@ -134,7 +127,7 @@ public class Game : MonoBehaviour
         return sg;
     }
 
-    public void LoadFrom(SavedGame sg)
+    public void LoadFrom(string fileName, SavedGame sg)
     {
         Mode = GameMode.Load;
         Restart();
@@ -143,6 +136,7 @@ public class Game : MonoBehaviour
         track.LoadFrom(sg.track);
         magicBoard.LoadFrom(sg.magicBoard);
         Mode = GameMode.Build;
+        this.fileName = Path.GetFileNameWithoutExtension(fileName);
     }
 
     void OnApplicationQuit()

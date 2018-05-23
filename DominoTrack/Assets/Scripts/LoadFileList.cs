@@ -5,9 +5,19 @@ using System.IO;
 public class LoadFileList : MonoBehaviour {
     public GameObject prefabFileButton;
     public int columns;
-    
-    void OnEnable()
+    private bool rendered = false;
+
+    void OnDisable()
     {
+        rendered = false;
+    }
+
+    void OnGUI()
+    {
+        // Just render once per activation.  I don't know why if I use OnEnable the first time it doesn't work well.
+        if (rendered) return;
+        rendered = true;
+
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);

@@ -107,12 +107,14 @@ public class MenuController : MonoBehaviour
 
     public void LoadTrackMenu()
     {
+        Analytics.CustomEvent("openLoadMenu");
         HideMenus();
         loadTrackMenu.gameObject.SetActive(true);
     }
 
     public void SaveTrackMenu()
     {
+        Analytics.CustomEvent("openSaveMenu");
         HideMenus();
         saveTrackMenu.gameObject.SetActive(true);
     }
